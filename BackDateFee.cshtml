@@ -1,0 +1,3723 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+
+    <script src="~/Script/Fee/BackDateFee.js?v=21.12"></script>
+
+    <style type="text/css">
+        .col-2 {
+            line-height: 10px;
+        }
+
+            .col-2 span {
+                line-height: 19px;
+            }
+
+            .col-2 label {
+                width: 27% !important;
+            }
+
+        #tblfees tr td {
+            padding: 2px;
+            border: 1px solid #ccc;
+            font-size: 12px;
+            font-weight: 300;
+            text-align: left;
+            padding: 4px 10px;
+        }
+
+        .divpage123 {
+            display: inline;
+            width: 65%;
+            border: 1px solid black;
+            padding: 1%;
+            float: left;
+        }
+
+        .divpage1234 {
+            display: inline;
+            width: 49%;
+            border: 1px solid black;
+            padding: 1%;
+            float: left;
+        }
+
+        #tblfees th {
+            background: #7aadce !important;
+            color: #fff;
+            font-size: 14px;
+            border-left: 1px solid #ccc;
+            border-right: 1px solid #fff;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            white-space: nowrap;
+            text-align: left;
+            padding: 5px 10px;
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            color: #fff;
+        }
+
+        .Auth2 {
+            width: 100%;
+            float: right;
+            text-align: right;
+            font-weight: bold;
+            margin-top: 1vh;
+        }
+
+        .Auth3 {
+            width: 100%;
+            float: right;
+            text-align: right;
+            margin-right: 20px;
+            margin-top: 1.5vh;
+        }
+    </style>
+    <style id="table_style" type="text/css">
+        body {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+
+        table {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+        }
+
+            table th {
+                background-color: #F7F7F7;
+                color: #333;
+                font-weight: bold;
+            }
+
+            table th, table td {
+                padding: 5px;
+                border: 1px solid #ccc;
+            }
+    </style>
+
+    <link href="~/Content/Styles/PrintSingleSlip.css" rel="stylesheet" />
+    <link href="~/Content/Styles/FeeReciept2.css" rel="stylesheet" />
+
+    <link href="~/Content/Fee/FeeSlip.css" rel="stylesheet" />
+
+</head>
+<body>
+    @* <button>Remove content of the div element</button>*@
+    <div class="wrapper" id="wrapper">
+        <div class="popinner" style="max-width: 169vh; height: 82vh; overflow-y: scroll; margin-top: 2vh;">
+            <div class="middle middle1">
+                <h3 class="page-title" style="margin-bottom: 1vh; margin-top: 0px;">
+                    <div class="label-title" style="width: 204px !important;">Backdate Fee Entry</div>
+                </h3>
+                <div id="validationStudentFee" class="bm_validation" style="display: none;"><span></span></div>
+            </div>
+
+
+            <div style="width: 25%; float: left">
+
+                <div class="col-2" style="width: 100%;">
+                    <label><span>Branch</span></label>
+                    <div class="multi_dropdown">
+                        <div class="loading_items">
+                            <i class="fa fa-circle-o-notch fa-spin fa-3x" style="display: none;"></i>
+                            <select id="ddlBranch">
+                                <option value="0">Select Branch</option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-2" style="width: 100%;">
+                    <label><span>Class</span></label>
+                    <div class="multi_dropdown">
+                        <div class="loading_items">
+                            <i class="fa fa-circle-o-notch fa-spin fa-3x" style="display: none;"></i>
+                            <select id="ddlClass">
+                                <option value="0">Select Class</option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-2" style="width: 100%;">
+                    <label><span>Section</span></label>
+                    <div class="multi_dropdown">
+                        <div class="loading_items">
+                            <i class="fa fa-circle-o-notch fa-spin fa-3x" style="display: none;"></i>
+                            <select id="ddlSec">
+                                <option value="0">Select Section</option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-2" style="width: 100%;">
+                    <label><span>Name</span></label>
+                    <div class="multi_dropdown">
+                        <div class="loading_items">
+                            <i class="fa fa-circle-o-notch fa-spin fa-3x" style="display: none;"></i>
+                            <select id="ddlstudent">
+                                <option value="0">Select Student</option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-2" style="width: 100%;">
+                    <label>Enter Sid</label>
+                    <input name="" type="text" id="txtSid" maxlength="20">
+                </div>
+
+
+
+
+
+                <div class="col-2" style="width: 100%;">
+                    <label>F.Name</label>
+                    <input name="" type="text" id="txtFName" disabled="disabled" maxlength="20">
+                </div>
+
+                <div class="col-2" style="width: 100%;">
+                    <label>M.Name</label>
+                    <input name="" type="text" id="txtMName" disabled="disabled" maxlength="20">
+                </div>
+
+                <div class="col-2" style="width: 100%;">
+                    <label>Mobile No.</label>
+                    <input name="" type="text" id="txtMobileNo" maxlength="20">
+                </div>
+
+
+                <div class="col-2" style="width: 100%;">
+
+                    <label>Address</label>
+                    <textarea name="" id="txtAddress" disabled="disabled" style="height: 60px; resize: none;" maxlength="100"></textarea>
+                </div>
+
+                <div class="col-2" style="width: 100%;">
+
+                    <label>Receipt No</label>
+                    <input name="" type="text" id="txtManualReceiptNo" maxlength="300">
+                </div>
+
+                <div class="col-2" style="width: 100%;">
+
+                    <label>Remarks</label>
+                    <input name="" type="text" id="txtSplRemarks" maxlength="300">
+                </div>
+
+                <div class="col-2" style="width: 100%;">
+                    <label>Adm Status</label>
+                    <input name="" type="text" disabled="disabled" id="txtadmstatus" maxlength="20">
+                </div>
+
+                <div class="col-2" style="width: 100%;">
+                    <label>Date</label>
+                    <input name="" type="text" id="txtFeeDate" maxlength="10" placeholder="DD-MM-YYYY" onkeyup="NumericCheck(this)">
+                </div>
+
+                <div class="col-2" style="width: 100%;">
+                    <label>Month</label>
+                    <div class="multi_dropdown" style="width:56%!important;">
+                        <div class="loading_items">
+                            <i class="fa fa-circle-o-notch fa-spin fa-3x" style="display: none;"></i>
+                            <select id="ddlMonth">
+                                <option value="0">Select Month</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="checkbox" value='Testing' id="PreviousFee" style="margin-left:30px!important;" />
+                </div>
+
+                @* ------------------------Only Previous Balance Paid---------------------*@
+
+                @* <div class="col-2" style="width: 100%;">
+                        <label>Previous </label>
+                        <input type="checkbox" value='Testing'id="PreviousFee"/>
+
+                    </div>*@
+
+                @* ------------------------Only Previous Balance Paid---------------------*@
+
+
+
+
+                <div class="col-2" style="width: 100%;">
+
+                    <label>Important Remarks</label>
+                    <input name="" type="text" style="color:red;" id="txtImpRemarks" maxlength="300">
+                </div>
+                <div class="col-2" style="width: 100%; text-align: end; padding-bottom: 10px;">
+                    <input type="button" id="btnCremarks" class="btn btn-primary" style="background-color: #337ab7; font-weight: bold;" value="Change Remarks">
+                </div>
+            </div>
+
+            <div style="width: 25%; float: left">
+                <div class="col-2" style="width: 100%;">
+                    <label><span>Transport</span></label>
+                    <div class="multi_dropdown" style="width: 59%">
+                        <div class="loading_items">
+                            <i class="fa fa-circle-o-notch fa-spin fa-3x" style="display: none;"></i>
+                            <select id="ddlRoute">
+                                <option value="0">Select Transport</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="button" id="btnTranport" class="button" value="+" style="background-color: #4798aa; color: white; float: none; width: 30px; margin-top: 1px;">
+                </div>
+
+                <div class="col-2" style="width: 100%;">
+                    <label><span>FeeGroup</span></label>
+                    <div class="multi_dropdown" style="width: 59%">
+                        <div class="loading_items">
+                            <i class="fa fa-circle-o-notch fa-spin fa-3x" style="display: none;"></i>
+                            <select id="ddlFeeGroup">
+                                <option value="0">Select FeeGroup</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="button" id="btnFeeGroup" class="button" value="+" style="background-color: #4798aa; color: white; float: none; width: 30px; margin-top: 1px;">
+                </div>
+
+                <div class="col-2" style="width: 100%;">
+                    <label><span>Concession</span></label>
+                    <div class="multi_dropdown" style="width: 59%">
+                        <div class="loading_items">
+                            <i class="fa fa-circle-o-notch fa-spin fa-3x" style="display: none;"></i>
+                            <select id="ddlConcession">
+                                <option value="0">Select Concession</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="button" id="btnconcession" class="button" value="+" style="background-color: #4798aa; color: white; float: none; width: 30px; margin-top: 1px;">
+                </div>
+
+                <div class="col-2" style="width: 100%;">
+                    <label><span>PayMode</span></label>
+                    <div class="multi_dropdown">
+                        <div class="loading_items">
+                            <i class="fa fa-circle-o-notch fa-spin fa-3x" style="display: none;"></i>
+                            <select id="ddlPayMode">
+                                @*  <option value="0">Select PayMode</option>*@
+                                <option value="Cash">Cash</option>
+                                <option value="Card">Card</option>
+                                <option value="Cheque">Cheque</option>
+                                <option value="Online">Online</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                                <option value="UPI">UPI</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-2" style="width: 100%;">
+                    <label>Bank Name</label>
+                    <input name="" type="text" id="txtBankName" maxlength="20">
+                </div>
+                <div class="col-2" style="width: 100%;">
+                    <label>Cheq/Ref-No</label>
+                    <input name="" type="text" id="txtchequeddno" maxlength="70">
+                </div>
+                <div class="col-2" style="width: 100%;">
+                    <label>Date</label>
+                    <input name="" type="text" id="txtCheqDate" maxlength="6" onkeyup="NumericCheck(this)">
+                </div>
+                <div class="col-2" style="width: 100%;">
+                    <label>Gross Paya.</label>
+                    <input name="" type="text" id="txtGrossPayable" value="0" disabled="disabled" maxlength="20">
+                </div>
+                <div class="col-2" style="width: 100%;">
+                    <label>Conce. Amt.</label>
+                    <input name="" type="text" id="txtDiscount" maxlength="20" value="0" disabled="disabled">
+                </div>
+
+                <div class="col-2" style="width: 100%;">
+                    <label>Discount</label>
+                    <input name="" type="text" id="txtTotalDiscount" maxlength="20" value="0">
+                </div>
+                <div class="col-2" style="width: 100%;">
+                    <label>Other Fee</label>
+                    <input name="" type="text" id="txtOtherFee" maxlength="10" value="0" disabled="disabled">
+                </div>
+                <div class="col-2" style="width: 100%;">
+                    <label>Net Payable</label>
+                    <input name="" type="text" id="txtnetPayable" maxlength="20" value="0" disabled="disabled">
+                </div>
+                <div class="col-2" style="width: 100%;">
+                    <label>Enter Paid </label>
+                    <input name="" type="text" id="txtTotalPaid" maxlength="20" value="0">
+                </div>
+                <div class="col-2" style="width: 100%;">
+                    <label>Balance Fees</label>
+                    <input name="" type="text" id="txtTotalBlance" maxlength="20" value="0" disabled="disabled">
+                </div>
+            </div>
+
+            <div style="width: 49%; float: left; margin-left: 1%;">
+
+                <div class="col-2" style="width: 100%;">
+                    <label><span>Search Student</span></label>
+                    <input name="" type="text" id="txtSearchStudent">
+
+                    <input name="" type="text" style="display: none;" id="txtSearchStudentId">
+                </div>
+                @*  <div class="col-2" style="width: 100%;">
+                        <label><span>Search Admno</span></label>
+                        <input name="" type="text" id="txtSearchAdmno">
+
+
+                    </div>*@
+                <div class="col-2" style="width: 100%;">
+                    <label>Enter Admno</label>
+                    <input name="" type="text" id="txtAdmno" maxlength="20">
+                </div>
+
+                <div id="DivUniversityRollNo" class="col-2" style="width: 100%;display:none;">
+                    <label>University Roll No.</label>
+                    <label id="lblUniversityRollNo" style="color:red;"></label>
+                </div>
+                <div id="DivDirectDiscount" class="col-2" style="width: 100%;display:none;">
+                    <label>Total Discount</label>
+                    <label id="lblDirectDiscount" style="color:red;"></label>
+                </div>
+
+
+                <div class="middle middle1">
+                    <h3 class="page-title" style="margin-bottom: 1vh; margin-top: 2vh;">
+                        <div class="label-title" style="width: 204px !important;">Student Fee Detail</div>
+                        <input type="button" id="btnViewFee" class="btn btn-success" style="background-color: #14A44D; font-weight: bold; float:right" value="View Total">
+                    </h3>
+                </div>
+
+                <div id="DivStudentFee" style="width: 100%; height: 34vh; overflow-y: scroll;">
+                    <table id='tblfees' width="100%" class="viewd milestonetbl" style="overflow-x: scroll; margin-top: 0px; white-space: nowrap;">
+                        <thead>
+                            <tr>
+                                <th>Fee Month</th>
+                                <th>Fee Name</th>
+                                <th>After Conc. Fee</th>
+                                <th>Direct Disc.</th>
+                                <th>Enter Paid</th>
+                                <th>Bal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="text-align: center; margin-top: 1vh;">
+                    <input type="button" id="btnAddFeeNew" class="btn btn-success" style="background-color: #14A44D; font-weight: bold; display:none;" value="Print Remarks">
+                    <input type="button" id="btnAddFee" class="btn btn-primary" style="background-color: #337ab7; font-weight: bold;" value="Fee Submit">
+                    @*<input type="button" id="btnPreviousReciept" value="Previous Reciepts">*@
+                    <input type="button" id="btnReset" class="btn btn-primary" style="background-color: #337ab7; font-weight: bold;" value="Reset">
+
+                    <input type="button" onclick="PrintTable();" id="btnPri" class="btn btn-primary" style="background-color: #337ab7; font-weight: bold;" value="Print">
+                    <input type="button" id="OtherFee" class="btn btn-primary" style="background-color: #337ab7; font-weight: bold;" value="OtherFee">
+
+                    <input type="button" id="NotMonth" class="btn btn-primary" style="background-color: #337ab7; font-weight: bold;" value="Not Month">
+                    @* <input type="button" id="btnSibling" value="Sibling">*@
+                </div>
+
+                <div class="wrapper" id="grid" style="width: 100%; margin-top: 0px; display: none;">
+                    <table width="100%" class="viewd milestonetbl" id="FeeGroupList">
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="col-last" style="border-top: 2px solid #34495e; padding-top: 0px;">
+            </div>
+
+
+
+            <div style="width: 49%; float: left; margin-bottom: 1vh; margin-top: 0vh;">
+                <div class="middle middle1">
+                    <h3 class="page-title" style="margin-bottom: 1vh;">
+                        <div class="label-title" style="width: 204px !important;">Student Sibling Detail</div>
+                    </h3>
+                </div>
+
+                <div id="siblinggrid">
+                    <table width="100%" class="viewd milestonetbl" style="overflow-x: scroll; white-space: nowrap;" id="siblinglist">
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div style="width: 49%; float: left; margin-bottom: 1vh; margin-top: 0vh; margin-left: 2%;">
+                <div class="middle middle1">
+                    <h3 class="page-title" style="margin-bottom: 1vh;">
+                        <div class="label-title" style="width: 204px !important;">Student Previous Fee Receipt</div>
+                    </h3>
+                </div>
+
+                <div id="Detailgrid1">
+                    <table width="100%" class="viewd milestonetbl" style="overflow-x: scroll; white-space: nowrap;" id="FeeDetailList1">
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+    <div class="pop2" id="divFeeDetail">
+        <div class="popinner" style="max-width: 140vh; max-height: 90vh; overflow-y: scroll;">
+
+            <div id="validationAddStudent" class="bm_validation" style="display: none;"><span></span></div>
+
+            @*<i class="fa fa-times closepop" onclick="ClosePopup('divFeeDetail');"></i>*@
+
+            @* <div class="wrapper" id="Detailgrid1" style="width: 100%; float: right;">
+                    <table width="200%" class="viewd milestonetbl" id="FeeDetailList1">
+                        <tbody></tbody>
+                    </table>
+                </div>*@
+            <div id="DivSubjectList" style="display: none; width: 100%; float: left"></div>
+            <div class="col-last">
+
+                <input type="button" id="btnCancelStudent" onclick="ClosePopup('divFeeDetail');" value="Close">
+            </div>
+
+            <div style="clear: both"></div>
+        </div>
+    </div>
+
+
+    <div class="pop2" id="divViewFee">
+        <div class="popinner popinner1" style="width: 15cm; max-height: 88vh; overflow-y: scroll;">
+            <div class="Lead_Loader" id="loader_Add_Class_Print_Fee" style="display: none;">
+                <div class="LeadCssLoader"></div>
+            </div>
+            <div id="validationPrintRegFeeSch" class="bm_validation" style="display: none;"><span></span></div>
+            <i class="fa fa-times closepop" onclick="ClosePopup('divViewFee');"></i>
+
+            <h2>
+                <label class="popup-title">Head Wise Total</label>
+            </h2>
+
+            <div class="header" style="width: 100%;">
+                <div class="Top-Line"></div>
+                <div class="FeeHead" style="width: 28%; margin-left:30%">FeeName</div>
+
+                <div class="FeeHead" style="width: 18%;">Amount</div>
+
+                <div class="Bottom-Line"></div>
+                <div id="DivFeeDetailCSch" style="margin-top: 7px;">
+                    <div class="FeeHeadValue" id="DivFeeNameCSch" style="width: 28%;margin-left:30%"></div>
+
+                    <div class="FeeHeadValue" id="DivBalanceCSch" style="width: 18%;"></div>
+                </div>
+
+
+                <div class="col-last" id="DivLastPrintReceiptSch">
+
+                    <input type="button" style="display: none;" id="btnCancelPrinReceiptSch" value="Close">
+                    <input type="button" style="display: none;" id="btnCancelPrinReceipt1Sch" value="Close">
+
+                </div>
+                <div style="clear: both"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="pop2" id="divPrintRegFeeSlip">
+        <div class="popinner popinner1" style="width: 21cm; max-height: 95vh; overflow-y: scroll;">
+            <div class="Lead_Loader" id="loader_Add_Class_Print_Fee" style="display: none;">
+                <div class="LeadCssLoader"></div>
+            </div>
+            <div id="validationPrintRegFee" class="bm_validation" style="display: none;"><span></span></div>
+            <i class="fa fa-times closepop" id='MyHideProcess3'></i>
+            @*<i class="fa fa-times closepop" onclick="ClosePopup('divPrintRegFeeSlip');"></i>*@
+
+            <h2>
+                <label class="popup-title">Print Fee Reciept</label>
+            </h2>
+
+            <div id="DivFeeSlip" style="width: 100%; float: left;">
+                <div id="DivSchoolCopy" style="display: inline; width: 49%; border: 1px solid black; padding: 1%; float: left;">
+                    @* <i id="ClosePrintSlipPopUp" class="fa fa-times closepop"></i>*@
+                    <div class="header" style="width: 100%;">
+                        <div class="new-line-Top">
+                            <div id="SchoolCopy" class="sr-no">School Copy</div>
+                            <div id="CollegeCopy" class="sr-no">College Copy</div>
+                            @*  <div class="title" id="DivBatchNo-">Session: <span id="DivBatchNo"></span></div>*@
+                            <div class="admission-no" style="float: right; width: 50%;" id="DivBatchNo-">Session : <span id="DivBatchNo">@*2021-2022*@</span></div>
+                            <div class="admission-no" style="display: none;">Affilation: <span id="DivAffilationNo"></span></div>
+                        </div>
+
+                        <div id="DivSchoolLogo">
+                            <img src="" style="width: 11%; float: left" id="ImgLogo">
+                        </div>
+                        <div class="school-name" id="DivSchoolName" style=" TEXT-ALIGN: CENTER;
+    FONT-SIZE: 20PX;
+    FONT-WEIGHT: BOLD;"></div>
+                        <div class="school-address" style="FONT-SIZE: 15PX;text-align:center" id="DivSchoolAddress"></div>
+
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" style="width: 30%;" id="DivFeeReceipt"></div>
+                            <div class="Class" style="width: 41%;" id="DivFeeClass"></div>
+                            <div class="Date" style="width: 27%;" id="DivFeeDate"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="lblRegNo"></span>
+                    </div>
+
+                    <div id="2divadmno_3" class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="2lblAdmNo_3"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="lblStudentName"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label id="lblfmdetail"></label>
+                        <span id="lblFatherName"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Mobile No. : </label>
+                        <span id="lblMobileNo"></span>
+                    </div>
+                    <div id="divAddress" class="col-student-detail cert-col-2">
+                        <label>Address : </label>
+                        <span id="lblAddress"></span>
+                    </div>
+
+                    @* <div id="divAddress2" class="col-student-detail cert-col-2">
+                            <label>Address : </label>
+                            <span id="lblAddress2"></span>
+                        </div>*@
+                    <div id="divRoute" class="col-student-detail cert-col-2 hideroute">
+                        <label>Route : </label>
+                        <span id="lblRoute"></span>
+                    </div>
+                    <div id="divDob" class="col-student-detail cert-col-2">
+                        <label>DOB : </label>
+                        <span id="lblDob"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="lblMonths"></span>
+                    </div>
+
+
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 28%;">FeeName</div>
+                        <div class="FeeHead" style="width: 18%;">Payable</div>
+                        <div class="FeeHead" style="width: 18%;">Dis.</div>
+                        <div class="FeeHead" style="width: 18%;">Paid</div>
+                        <div class="FeeHead" style="width: 18%;">Bal.</div>
+
+                        <div class="Bottom-Line"></div>
+                        <div id="DivFeeDetail" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="DivFeeName" style="width: 28%;"></div>
+                            <div class="FeeHeadValue" id="DivGrossPayable" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivConcession" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivPaid" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivBalance" style="width: 18%;"></div>
+                        </div>
+
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="DivFeeTotal">
+                                <div class="FeeHead" id="DivFeeNamet" style="width: 28%;">Total</div>
+                                <div class="FeeHeadValue" id="DivGrossPayablet" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivConcessiont" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivPaidt" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivBalancet" style="width: 18%;"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="new-line">
+                        </div>
+                        <div id="divConcesion" class="col-student-detail cert-col-2 ConHide">
+                            <label>Concession Name : </label>
+                            <span id="lblConcessionName"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. (In WordS) : </label>
+                            <span id="lblRsWord"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="lblPaymentModeSchool"></span>
+                        </div>
+                        @* This is Done By honey*@
+                        <div id="DivRemarks" class="col-student-detail cert-col-2">
+                            <label>Remarks : </label>
+                            <span id="lblRemarkSchool"></span>
+                        </div>
+
+                        <div id="DivChequeNo" class="col-student-detail cert-col-2">
+                            <label>Cheque No/Ref-ID : </label>
+                            <span id="lblChequeNo" style="overflow-wrap: break-word;"></span>
+                        </div>
+
+                        <div id="DivBankName" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="lblBankName"></span>
+                        </div>
+                        <div id="DivChequeDate" class="col-student-detail cert-col-2">
+                            <label>Cheque/Ref-ID Date. : </label>
+                            <span id="lblChequeDate"></span>
+                        </div>
+
+
+
+                        <div class="Auth3" id="StaffNameHide" style=" width: 100%; float: right; text-align: right;  margin-top: 1vh;">  <span id="DivStaffNameSISR"></span></div>
+                        <div class="Auth2" style=" width: 100%; float: right; text-align: right; font-weight: bold; margin-top: 1vh;">Authorized sign.</div>
+                    </div>
+                </div>
+                <div style="display: inline; width: 1%; float: left;">
+                    <table class="viewd milestonetbl PlacedUnPlaced">
+                    </table>
+                </div>
+
+                <div id="DivStudentCopy" style=" display: inline; width: 49%; border: 1px solid black; padding: 1%; float: left;">
+                    <div class="header" style="width: 100%;">
+                        <div class="new-line-Top">
+                            <div class="sr-no">Student Copy</div>
+                            @*<div class="title" id="DivBatchNoC">2021-2022</div>*@
+                            <div class="admission-no" style="float: right; width: 50%;" id="DivBatchNoC-">Session : <span id="DivBatchNoC">@*2021-2022*@</span></div>
+                            <div class="admission-no" style="display: none;">Affilation:<span id="DivAffilationNoC"></span></div>
+                        </div>
+                        <div id="DivSchoolLogo2">
+                            <img src="" style="width: 11%; float: left" id="ImgLogo2">
+                        </div>
+                        <div style=" TEXT-ALIGN: CENTER;
+    FONT-SIZE: 20PX;
+    FONT-WEIGHT: BOLD;" id="DivSchoolNameC"></div>
+                        <div class="school-address" style="FONT-SIZE: 15PX;text-align:center" id="DivSchoolAddressC"></div>
+                        <div class="school-address" style="FONT-SIZE: 15PX;
+
+    text-align: center;
+    padding-left: 35px;" id="lblAddressLine2"></div>
+                        <div class="school-address" style="FONT-SIZE: 15.5PX;
+
+    text-align: center;
+    padding-left: 35px;" id="lblAddressLine3"></div>
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" style="width: 30%;" id="DivFeeReceiptC"></div>
+                            <div class="Class" style="width: 40%; text-align:center" id="DivFeeClassC"></div>
+                            <div class="Date" style="width: 30%;" id="DivFeeDateC"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="lblRegNoC"></span>
+                    </div>
+
+                    <div id="2divAdmnoC_3" class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="2lblAdmNoC_3"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="lblStudentNameC"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label id="lblfmdetailC"></label>
+                        <span id="lblFatherNameC"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Mobile No. : </label>
+                        <span id="lblMobileNoC"></span>
+                    </div>
+                    <div id="divAddressC" class="col-student-detail cert-col-2">
+                        <label>Address : </label>
+                        <span id="lblAddressC"></span>
+                    </div>
+                    <div id="divRouteC" class="col-student-detail cert-col-2 hideroute">
+                        <label>Route : </label>
+                        <span id="lblRouteC"></span>
+                    </div>
+                    <div id="divDobC" class="col-student-detail cert-col-2">
+                        <label>DOB : </label>
+                        <span id="lblDobC"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="lblMonthsC"></span>
+                    </div>
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 28%;">FeeName</div>
+                        <div class="FeeHead" style="width: 18%;">Payable</div>
+                        <div class="FeeHead" style="width: 18%;">Dis.</div>
+                        <div class="FeeHead" style="width: 18%;">Paid</div>
+                        <div class="FeeHead" style="width: 18%;">Bal.</div>
+
+                        <div class="Bottom-Line"></div>
+                        <div id="DivFeeDetailC" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="DivFeeNameC" style="width: 28%;"></div>
+                            <div class="FeeHeadValue" id="DivGrossPayableC" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivConcessionC" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivPaidC" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivBalanceC" style="width: 18%;"></div>
+                        </div>
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="DivFeeTotalC">
+                                <div class="FeeHead" id="DivFeeNametC" style="width: 28%;">Total</div>
+                                <div class="FeeHeadValue" id="DivGrossPayabletC" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivConcessiontC" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivPaidtC" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivBalancetC" style="width: 18%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="new-line">
+                        </div>
+                        <div id="divConcesionC" class="col-student-detail cert-col-2 ConHide">
+                            <label>Concession Name : </label>
+                            <span id="lblConcessionNameC"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. (In Words) : </label>
+                            <span id="lblRsWordC"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="lblPaymentModeStudent"></span>
+                        </div>
+                        <div id="DivRemarksC" class="col-student-detail cert-col-2 DivRemarksHide">
+                            <label>Remarks : </label>
+                            <span id="lblRemarkSchoolC"></span>
+                        </div>
+
+                        <div id="DivChequeNoStudent" class="col-student-detail cert-col-2">
+                            <label>Cheque No/Ref-ID : </label>
+                            <span id="lblChequeNoStudent" style="overflow-wrap: break-word;"></span>
+                        </div>
+
+                        <div id="DivBankNameStudent" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="lblBankNameStudent"></span>
+                        </div>
+
+                        <div id="DivChequeDateStudent" class="col-student-detail cert-col-2">
+                            <label>Cheque/Ref-ID  Date. : </label>
+                            <span id="lblChequeDateStudent"></span>
+                        </div>
+                        <div class="Auth3" id="StaffNameHide2" style=" width: 100%; float: right; text-align: right; margin-top: 1vh;">  <span id="DivStaffNameSISR2"></span></div>
+                        <div class="Auth2" style=" width: 100%; float: right; text-align: right; font-weight: bold; margin-top: 1vh;">Authorized sign.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-last" id="DivLastPrintReceipt">
+                <input type="button" id="btnPrintReceipt" value="Print">
+                <input type="button" id="btnCancelPrinReceipt" value="Close">
+                <input type="button" style="display: none;" id="btnCancelPrinReceipt1" value="Close">
+                @*onclick="ClosePopup('divPrintRegFeeSlip');"*@
+            </div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+    @*<!..................................Not Month...................................>*@
+
+    <div class="pop2" id="divAddNotMonth">
+        <div class="popinner" style="max-width: 140vh; max-height: 90vh; overflow-y: scroll;">
+
+            <div id="validationAddStudent" class="bm_validation" style="display: none;"><span></span></div>
+
+            <i class="fa fa-times closepop" onclick="ClosePopup('divAddNotMonth');"></i>
+            <h2>
+                <label class="popup-title">Remove Transport Month</label>
+            </h2>
+
+            <div style="margin:2% 4% ; width: 92%; float: left; border-radius: 5px; box-shadow: 0 0 10px #bdbdbd; ">
+                <label><span style="text-align:center;font-weight:700;font-size:20px">Month</span></label>
+                <div style="border: 2px solid black; overflow-y: scroll; height: 9vh; ">
+                    <table id="ddlRMonth" style="width: 100%">
+                        <tbody style="display:flex">
+                            <tr><td><input type='checkbox' id='chkbox'>All</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-2">
+                <input type="button" id="btnReviseTransport" class="btn btn-primary" style="background-color: #337ab7; font-weight: bold;" value="Remove">
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <!------------------------start other fee popup------------------------------------>
+    <div class="pop2" id="divAddCommonMaster">
+        <div class="popinner" style="max-width: 140vh; max-height: 90vh; overflow-y: scroll;">
+
+            <div id="validationAddStudent" class="bm_validation" style="display: none;"><span></span></div>
+
+            <i class="fa fa-times closepop" onclick="ClosePopup('divAddCommonMaster');"></i>
+            <h2>
+                <label class="popup-title">Add Other Fee</label>
+            </h2>
+
+            <div class="row" style="margin-left: 10px; margin-bottom: 20px">
+                <div class="col-2" id="SearchStudentField">
+                    <label><span>Search Student</span></label>
+                    <input name="" type="text" id="txtSearchStudentFeeOther">
+
+
+                </div>
+            </div>
+
+            <div class="row" style="margin-left: 10px;">
+
+
+                <div class="col-2">
+                    <label>Student Id</label>
+
+                    <input type="text" id="ddlStudentIdnew">
+                </div>
+                <div class="col-2">
+                    <label>Student Name</label>
+
+                    <input type="text" id="ddlStudentIdName">
+                </div>
+            </div>
+
+            <div class="row" style="margin-left: 10px;">
+
+
+
+                <div class="col-2">
+                    <label><span>Month</span></label>
+                    <div class="multi_dropdown">
+                        <div class="loading_items">
+                            <i class="fa fa-circle-o-notch fa-spin fa-3x" style="display: none;"></i>
+                            <select id="ddlMonth1">
+                                <option value="0">Select Month</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-2">
+                    <label><span>Select Fee Name</span></label>
+                    <div class="multi_dropdown">
+                        <div class="loading_items">
+                            <i class="fa fa-circle-o-notch fa-spin fa-3x" style="display: none;"></i>
+                            <select id="OtherFeeName">
+                                <option value="0">Select Fee Name</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-left: 10px;">
+
+                <div class="col-2">
+                    <label>Amount</label>
+                    <input type="text" id="OtherFeeAmt">
+                </div>
+                <div class="col-2">
+                    <label>Remarks</label>
+                    <input type="text" id="OtherFeeRemarks">
+                </div>
+            </div>
+
+
+
+
+
+            <div style="clear: both"></div>
+
+            <div class="col-last">
+                <input type="button" id="btnSaveOtherFee" value="Save">
+                <input type="button" id="btnResetOter" onclick="ClosePopup('divAddCommonMaster');" value="Reset">
+            </div>
+
+            <div style="clear: both"></div>
+            <div id="ItemMasterTable">
+                <table width="100%" class="viewd milestonetbl" style="overflow-x: scroll; white-space: nowrap;" id="DivItemMasterist">
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <!--Zero Slip Start-->
+    <div class="pop2" id="divPrintRegFeeSlipZero">
+        <div class="popinner popinner1" style="width: 21cm; max-height: 88vh; overflow-y: scroll;">
+            <div class="Lead_Loader" id="loader_Add_Class_Print_Fee" style="display: none;">
+                <div class="LeadCssLoader"></div>
+            </div>
+            <div id="validationPrintRegFeeZero" class="bm_validation" style="display: none;"><span></span></div>
+            <h2>
+                <label class="popup-title">Preview Student Ledger</label>
+            </h2>
+
+            <div id="DivFeeSlipZero" style="width: 100%; float: left;">
+                <div id="DivSchoolCopyZero" style="display: inline; width: 98%; border: 1px solid black; padding: 1%; float: left;">
+
+                    <div class="header" style="width: 100%;">
+                        <div class="new-line-Top">
+                            <div id="StudentLedgerZero" class="sr-no">Sudent Ledger</div>
+                            <div class="admission-no" style="float: right; width: 50%;">Session : <span id="DivBatchNoZero"></span></div>
+                            <div class="admission-no" style="display: none;">Affilation: <span id="DivAffilationNoZero"></span></div>
+                        </div>
+
+                        <div class="school-name" id="DivSchoolLogoZero">
+                            <img src="" style="width: 6%; float: left" id="ImgLogoZero">
+                        </div>
+                        <div class="school-name" id="DivSchoolNameZero"></div>
+                        <div class="school-address" style="FONT-SIZE: 14.5PX;" id="DivSchoolAddressZero"></div>
+
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Class" style="width: 50%;text-align:left!important" id="DivFeeClassZero"></div>
+                            <div class="Date" style="width: 50%;">Print Date: <span id="DivFeeDateZero"></span></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="lblRegNoZero"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="2lblAdmNoZero_3"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="lblStudentNameZero"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label id="lblfmdetailZero"></label>
+                        <span id="lblFatherNameZero"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Mobile No. : </label>
+                        <span id="lblMobileNoZero"></span>
+                    </div>
+                    <div id="divAddress" class="col-student-detail cert-col-2">
+                        <label>Address : </label>
+                        <span id="lblAddressZero"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="lblMonthsZero"></span>
+                    </div>
+
+
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 20%;">PaidDate</div>
+                        <div class="FeeHead" style="width: 20%;">Receiptno</div>
+                        <div class="FeeHead" style="width: 20%;">NetPayable</div>
+                        <div class="FeeHead" style="width: 20%;">Paid</div>
+                        <div class="FeeHead" style="width: 20%;">PaymentMode</div>
+
+                        <div class="Bottom-Line"></div>
+                        <div id="DivFeeDetailZero" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="DivPaidDateZero" style="width: 20%;"></div>
+                            <div class="FeeHeadValue" id="DivReceiptnoZero" style="width: 20%;"></div>
+                            <div class="FeeHeadValue" id="DivNetPayableZero" style="width: 20%;"></div>
+                            <div class="FeeHeadValue" id="DivPaidZero" style="width: 20%;"></div>
+                            <div class="FeeHeadValue" id="DivPaymentModeZero" style="width: 20%;"></div>
+                        </div>
+
+
+
+
+                        @*<div class="new-line">
+                            </div>*@
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-last" id="DivLastPrintReceiptZero">
+                <input type="button" id="btnPrintReceiptZero" value="Print">
+                <input type="button" id="btnCancelPrinReceiptZero" value="Close">
+                @*<input type="button" style="display: none;" id="btnCancelPrinReceipt1Zero" value="Close">*@
+            </div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+    <!--Zero Slip End-->
+    <!--Slip for Single Small Center (SSC)-->
+    <div class="pop2" id="divPrintRegFeeSlipSSC">
+        <div class="popinner popinner1" style="width: 21cm; max-height: 88vh; overflow-y: scroll;">
+
+
+            <div id="validationPrintRegFeeSSC" class="bm_validation" style="display: none;"><span></span></div>
+            <i class="fa fa-times closepop" id='ClosePrintSlipPopUpSSC'></i>
+            <i class="fa fa-times closepop" id='ClosePrintSlipPopUp1SSC'></i>
+
+            <h2>
+                <label class="popup-title">Print Fee Reciept</label>
+            </h2>
+
+            <div id="DivFeeSlipSSC" style="width: 100%; float: left;">
+
+
+                <div id="DivStudentCopySSC" style=" display: inline; width: 49%; border: 1px solid black; padding: 1%; float: left;margin-left:180px;">
+                    <div class="header" style="width: 100%;">
+                        <div class="new-line-Top">
+                            <div class="sr-no">Student Copy</div>
+
+                            <div class="admission-no" style="float: right; width: 50%;">Session : <span id="DivBatchNoSSC"></span></div>
+                            <div class="admission-no" style="display: none;">Affilation:<span id="DivAffilationNoSSC"></span></div>
+                        </div>
+                        <div id="DivSchoolLogo2SSC">
+                            <img src="" style="width: 11%; float: left" id="ImgLogo2SSC">
+                        </div>
+                        <div style=" TEXT-ALIGN: CENTER;
+    FONT-SIZE: 20PX;
+    FONT-WEIGHT: BOLD;" id="DivSchoolNameSSC"></div>
+                        <div class="school-address" style="FONT-SIZE: 15PX;text-align:center" id="DivSchoolAddressSSC"></div>
+
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" style="width: 30%;" id="DivFeeReceiptSSC"></div>
+                            <div class="Class" style="width: 40%; text-align:center" id="DivFeeClassSSC"></div>
+                            <div class="Date" style="width: 30%;" id="DivFeeDateSSC"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="lblRegNoSSC"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="lblAdmNoSSC"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="lblStudentNameSSC"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label id="lblFMdetailSSC"></label>
+                        <span id="lblFatherNameSSC"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Mobile No. : </label>
+                        <span id="lblMobileNoSSC"></span>
+                    </div>
+                    <div id="divAddressSSC" class="col-student-detail cert-col-2">
+                        <label>Address : </label>
+                        <span id="lblAddressSSC"></span>
+                    </div>
+                    <div id="divRouteSSC" class="col-student-detail cert-col-2">
+                        <label>Route : </label>
+                        <span id="lblRouteSSC"></span>
+                    </div>
+                    <div id="divDobSSC" class="col-student-detail cert-col-2">
+                        <label>DOB : </label>
+                        <span id="lblDobSSC"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="lblMonthsSSC"></span>
+                    </div>
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 28%;">FeeName</div>
+                        <div class="FeeHead" style="width: 18%;">Payable</div>
+                        <div class="FeeHead" style="width: 18%;">Dis.</div>
+                        <div class="FeeHead" style="width: 18%;">Paid</div>
+                        <div class="FeeHead" style="width: 18%;">Bal.</div>
+
+                        <div class="Bottom-Line"></div>
+                        <div id="DivFeeDetailSSC" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="DivFeeNameSSC" style="width: 28%;"></div>
+                            <div class="FeeHeadValue" id="DivGrossPayableSSC" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivConcessionSSC" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivPaidSSC" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivBalanceSSC" style="width: 18%;"></div>
+                        </div>
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="DivFeeTotalSSC">
+                                <div class="FeeHead" id="DivFeeNameTSSC" style="width: 28%;">Total</div>
+                                <div class="FeeHeadValue" id="DivGrossPayableTSSC" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivConcessionTSSC" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivPaidTSSC" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivBalanceTSSC" style="width: 18%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="new-line">
+                        </div>
+                        <div id="divConcesionNameSSC" class="col-student-detail cert-col-2">
+                            <label>Concession Name : </label>
+                            <span id="lblConcessionNameSSC"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. (In Words) : </label>
+                            <span id="lblRsWordSSC"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="lblPaymentModeSSC"></span>
+                        </div>
+                        <div id="DivRemarksSSC" class="col-student-detail cert-col-2">
+                            <label>Remarks : </label>
+                            <span id="lblRemarskSSC"></span>
+                        </div>
+
+                        <div id="DivChequeNoSSC" class="col-student-detail cert-col-2">
+                            <label>Cheque No/Ref-ID : </label>
+                            <span id="lblChequeNoSSC" style="overflow-wrap: break-word;"></span>
+                        </div>
+
+                        <div id="DivBankNameSSC" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="lblBankNameSSC"></span>
+                        </div>
+
+                        <div id="DivChequeDateSSC" class="col-student-detail cert-col-2">
+                            <label>Cheque/Ref-ID  Date. : </label>
+                            <span id="lblChequeDateSSC"></span>
+                        </div>
+
+                        <div class="Auth">Authorized sign.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-last" id="DivLastPrintReceiptSSC">
+                <input type="button" id="btnPrintReceiptSSC" value="Print">
+                <input type="button" id="btnCancelPrinReceiptSSC" value="Close">
+                <input type="button" style="display: none;" id="btnCancelPrinReceipt1SSC" value="Close">
+
+            </div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+    <!--Slip for Single Small Center-->
+    <!----------Slip for Ozone School---------->
+    <div class="pop2" id="divPrintRegFeeSlipOzone">
+        <div class="popinner popinner1" style="width: 21cm; max-height: 88vh; overflow-y: scroll;">
+            <div class="Lead_Loader" id="loader_Add_Class_Print_FeeOzone" style="display: none;">
+                <div class="LeadCssLoader"></div>
+            </div>
+            <div id="validationPrintRegFeeOzone" class="bm_validation" style="display: none;"><span></span></div>
+            <i class="fa fa-times closepop" id='MyHideProcess3Ozone'></i>
+            @*<i class="fa fa-times closepop" onclick="ClosePopup('divPrintRegFeeSlip');"></i>*@
+
+            <h2>
+                <label class="popup-title">Print Fee Reciept</label>
+            </h2>
+
+            <div id="DivFeeSlipOzone" style="width: 100%; float: left;">
+                <div id="DivSchoolCopyOzone" style="display: inline; width: 49%; border: 1px solid black; padding: 1%; float: left;">
+                    @* <i id="ClosePrintSlipPopUp" class="fa fa-times closepop"></i>*@
+                    <div class="header" style="width: 100%;">
+                        <div class="new-line-Top">
+                            <div id="SchoolCopyOzone" class="sr-no">School Copy</div>
+                            <div id="CollegeCopyOzone" class="sr-no">College Copy</div>
+                            @*  <div class="title" id="DivBatchNo-">Session: <span id="DivBatchNo"></span></div>*@
+                            <div class="admission-no" style="float: right; width: 50%;" id="DivBatchNoOzone-">Session : <span id="DivBatchNoOzone">@*2021-2022*@</span></div>
+                            <div class="admission-no" style="display: none;">Affilation: <span id="DivAffilationNoOzone"></span></div>
+                        </div>
+
+
+                        <div id="DivSchoolLogoOzone">
+                            <img src="" style="width: 30%; float: left" id="ImgLogoOzone">
+                        </div>
+                        <div style=" TEXT-ALIGN: CENTER;
+ FONT-SIZE: 20PX;
+ FONT-WEIGHT: BOLD;" id="DivSchoolNameOzone"></div>
+                        <div class="school-address" style="FONT-SIZE: 15PX;text-align:center" id="DivSchoolAddressOzone"></div>
+
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" style="width: 30%;" id="DivFeeReceiptOzone"></div>
+                            <div class="Class" style="width: 41%;" id="DivFeeClassOzone"></div>
+                            <div class="Date" style="width: 27%;" id="DivFeeDateOzone"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="lblRegNoOzone"></span>
+                    </div>
+
+                    <div id="2divadmno_3Ozone" class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="2lblAdmNo_3Ozone"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="lblStudentNameOzone"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label id="lblfmdetailOzone"></label>
+                        <span id="lblFatherNameOzone"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Mobile No. : </label>
+                        <span id="lblMobileNoOzone"></span>
+                    </div>
+                    <div id="divAddressOzone" class="col-student-detail cert-col-2">
+                        <label>Address : </label>
+                        <span id="lblAddressOzone"></span>
+                    </div>
+
+                    @* <div id="divAddress2" class="col-student-detail cert-col-2">
+                            <label>Address : </label>
+                            <span id="lblAddress2"></span>
+                        </div>*@
+                    <div id="divRouteOzone" class="col-student-detail cert-col-2">
+                        <label>Route : </label>
+                        <span id="lblRouteOzone"></span>
+                    </div>
+                    <div id="divDobOzone" class="col-student-detail cert-col-2">
+                        <label>DOB : </label>
+                        <span id="lblDobOzone"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="lblMonthsOzone"></span>
+                    </div>
+
+
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 28%;">FeeName</div>
+                        <div class="FeeHead" style="width: 18%;">Payable</div>
+                        <div class="FeeHead" style="width: 18%;">Dis.</div>
+                        <div class="FeeHead" style="width: 18%;">Paid</div>
+                        <div class="FeeHead" style="width: 18%;">Bal.</div>
+
+                        <div class="Bottom-Line"></div>
+                        <div id="DivFeeDetailOzone" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="DivFeeNameOzone" style="width: 28%;"></div>
+                            <div class="FeeHeadValue" id="DivGrossPayableOzone" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivConcessionOzone" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivPaidOzone" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivBalanceOzone" style="width: 18%;"></div>
+                        </div>
+
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="DivFeeTotalOzone">
+                                <div class="FeeHead" id="DivFeeNametOzone" style="width: 28%;">Total</div>
+                                <div class="FeeHeadValue" id="DivGrossPayabletOzone" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivConcessiontOzone" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivPaidtOzone" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivBalancetOzone" style="width: 18%;"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="new-line">
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Concession Name : </label>
+                            <span id="lblConcessionNameOzone"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. (In WordS) : </label>
+                            <span id="lblRsWordOzone"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="lblPaymentModeSchoolOzone"></span>
+                        </div>
+                        @* This is Done By honey*@
+                        <div id="DivRemarksOzone" class="col-student-detail cert-col-2">
+                            <label>Remarks : </label>
+                            <span id="lblRemarkSchoolOzone"></span>
+                        </div>
+
+                        <div id="DivChequeNoOzone" class="col-student-detail cert-col-2">
+                            <label>Cheque No/Ref-ID : </label>
+                            <span id="lblChequeNoOzone" style="overflow-wrap: break-word;"></span>
+                        </div>
+
+                        <div id="DivBankNameOzone" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="lblBankNameOzone"></span>
+                        </div>
+                        <div id="DivChequeDateOzone" class="col-student-detail cert-col-2">
+                            <label>Cheque/Ref-ID Date. : </label>
+                            <span id="lblChequeDateOzone"></span>
+                        </div>
+
+
+
+
+                        <div class="Auth">Authorized sign.</div>
+                    </div>
+                </div>
+                <div style="display: inline; width: 1%; float: left;">
+                    <table class="viewd milestonetbl PlacedUnPlaced">
+                    </table>
+                </div>
+
+                <div id="DivStudentCopyOzone" style=" display: inline; width: 49%; border: 1px solid black; padding: 1%; float: left;">
+                    <div class="header" style="width: 100%;">
+                        <div class="new-line-Top">
+                            <div class="sr-no">Student Copy</div>
+                            @*<div class="title" id="DivBatchNoC">2021-2022</div>*@
+                            <div class="admission-no" style="float: right; width: 50%;" id="DivBatchNoCOzone-">Session : <span id="DivBatchNoCOzone">@*2021-2022*@</span></div>
+                            <div class="admission-no" style="display: none;">Affilation:<span id="DivAffilationNoCOzone"></span></div>
+                        </div>
+                        <div id="DivSchoolLogo2Ozone">
+                            <img src="" style="width: 30%; float: left" id="ImgLogo2Ozone">
+                        </div>
+                        <div style=" TEXT-ALIGN: CENTER;
+ FONT-SIZE: 20PX;
+ FONT-WEIGHT: BOLD;" id="DivSchoolNameCOzone"></div>
+                        <div class="school-address" style="FONT-SIZE: 15PX;text-align:center" id="DivSchoolAddressCOzone"></div>
+
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" style="width: 30%;" id="DivFeeReceiptCOzone"></div>
+                            <div class="Class" style="width: 40%; text-align:center" id="DivFeeClassCOzone"></div>
+                            <div class="Date" style="width: 30%;" id="DivFeeDateCOzone"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="lblRegNoCOzone"></span>
+                    </div>
+
+                    <div id="2divAdmnoC_3Ozone" class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="2lblAdmNoC_3Ozone"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="lblStudentNameCOzone"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label id="lblfmdetailCOzone"></label>
+                        <span id="lblFatherNameCOzone"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Mobile No. : </label>
+                        <span id="lblMobileNoCOzone"></span>
+                    </div>
+                    <div id="divAddressCOzone" class="col-student-detail cert-col-2">
+                        <label>Address : </label>
+                        <span id="lblAddressCOzone"></span>
+                    </div>
+                    <div id="divRouteCOzone" class="col-student-detail cert-col-2">
+                        <label>Route : </label>
+                        <span id="lblRouteCOzone"></span>
+                    </div>
+                    <div id="divDobCOzone" class="col-student-detail cert-col-2">
+                        <label>DOB : </label>
+                        <span id="lblDobCOzone"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="lblMonthsCOzone"></span>
+                    </div>
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 28%;">FeeName</div>
+                        <div class="FeeHead" style="width: 18%;">Payable</div>
+                        <div class="FeeHead" style="width: 18%;">Dis.</div>
+                        <div class="FeeHead" style="width: 18%;">Paid</div>
+                        <div class="FeeHead" style="width: 18%;">Bal.</div>
+
+                        <div class="Bottom-Line"></div>
+                        <div id="DivFeeDetailCOzone" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="DivFeeNameCOzone" style="width: 28%;"></div>
+                            <div class="FeeHeadValue" id="DivGrossPayableCOzone" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivConcessionCOzone" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivPaidCOzone" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivBalanceCOzone" style="width: 18%;"></div>
+                        </div>
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="DivFeeTotalCOzone">
+                                <div class="FeeHead" id="DivFeeNametCOzone" style="width: 28%;">Total</div>
+                                <div class="FeeHeadValue" id="DivGrossPayabletCOzone" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivConcessiontCOzone" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivPaidtCOzone" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivBalancetCOzone" style="width: 18%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="new-line">
+                        </div>
+                        <div id="divConcesionCOzone" class="col-student-detail cert-col-2">
+                            <label>Concession Name : </label>
+                            <span id="lblConcessionNameCOzone"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. (In Words) : </label>
+                            <span id="lblRsWordCOzone"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="lblPaymentModeStudentOzone"></span>
+                        </div>
+                        <div id="DivRemarksCOzone" class="col-student-detail cert-col-2">
+                            <label>Remarks : </label>
+                            <span id="lblRemarkSchoolCOzone"></span>
+                        </div>
+
+                        <div id="DivChequeNoStudentOzone" class="col-student-detail cert-col-2">
+                            <label>Cheque No/Ref-ID : </label>
+                            <span id="lblChequeNoStudentOzone" style="overflow-wrap: break-word;"></span>
+                        </div>
+
+                        <div id="DivBankNameStudentOzone" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="lblBankNameStudentOzone"></span>
+                        </div>
+
+                        <div id="DivChequeDateStudentOzone" class="col-student-detail cert-col-2">
+                            <label>Cheque/Ref-ID  Date. : </label>
+                            <span id="lblChequeDateStudentOzone"></span>
+                        </div>
+
+                        <div class="Auth">Authorized sign.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-last" id="DivLastPrintReceiptOzone">
+                <input type="button" id="btnPrintReceiptOzone" value="Print">
+                <input type="button" id="btnCancelPrinReceiptOzone" value="Close">
+                <input type="button" style="display: none;" id="btnCancelPrinReceipt1Ozone" value="Close">
+                @*onclick="ClosePopup('divPrintRegFeeSlip');"*@
+            </div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+    <!----------Slip for Ozone School---------->
+    <!----------Slip for Without Discount---------->
+    <div class="pop2" id="divPrintRegFeeSlipWD">
+        <div class="popinner popinner1" style="width: 21cm; max-height: 88vh; overflow-y: scroll;">
+            <div id="validationPrintWD" class="bm_validation" style="display: none;"><span></span></div>
+
+            <i class="fa fa-times closepop" id='ClosePrintSlipPopUpWD'></i>
+            <i class="fa fa-times closepop" id='ClosePrintSlipPopUp1WD'></i>
+
+            <h2>
+                <label class="popup-title">Print Fee Reciept</label>
+            </h2>
+
+            <div id="DivFeeSlipWD" style="width: 100%; float: left;">
+
+
+                <div id="DivSchoolCopyWD" style="display: inline; width: 49%; border: 1px solid black; padding: 1%; float: left;">
+                    <div class="header" style="width: 100%;">
+                        <div class="new-line-Top">
+                            <div id="SchoolCopyWD" class="sr-no">School Copy</div>
+                            <div id="CollegeCopyWD" class="sr-no">College Copy</div>
+                            <div class="admission-no" style="float: right; width: 50%;">Session : <span id="DivBatchNoWD"></span></div>
+                            <div class="admission-no" style="display: none;">Affilation: <span id="DivAffilationNoWD"></span></div>
+                        </div>
+
+                        <div class="school-name" id="DivSchoolLogoWD">
+                            <img src="" style="width: 10%; float: left" id="ImgLogoWD">
+                        </div>
+                        <div class="school-name" id="DivSchoolNameWD"></div>
+                        <div class="school-address" style="FONT-SIZE: 14.5PX;" id="DivSchoolAddressWD"></div>
+
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" style="width: 30%;" id="DivFeeReceiptWD"></div>
+                            <div class="Class" style="width: 41%;" id="DivFeeClassWD"></div>
+                            <div class="Date" style="width: 27%;" id="DivFeeDateWD"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="lblRegNoWD"></span>
+                    </div>
+
+                    <div id="DivAdmNoWD" class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="lblAdmNoWD"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="lblStudentNameWD"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label id="lblfmdetailWD"></label>
+                        <span id="lblFatherNameWD"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Mobile No. : </label>
+                        <span id="lblMobileNoWD"></span>
+                    </div>
+                    <div id="divAddressWD" class="col-student-detail cert-col-2">
+                        <label>Address : </label>
+                        <span id="lblAddressWD"></span>
+                    </div>
+
+
+                    <div id="divRouteWD" class="col-student-detail cert-col-2">
+                        <label>Route : </label>
+                        <span id="lblRouteWD"></span>
+                    </div>
+                    <div id="divDobWD" class="col-student-detail cert-col-2">
+                        <label>DOB : </label>
+                        <span id="lblDobWD"></span>
+                    </div>
+
+                    <div id="divMonthsWD" class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="lblMonthsWD"></span>
+                    </div>
+
+
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 40%;">FeeName</div>
+                        <div class="FeeHead" style="width: 30%;">Payable</div>
+                        <div class="FeeHead" style="width: 30%;">Paid</div>
+
+                        <div class="Bottom-Line"></div>
+                        <div id="DivFeeDetailWD" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="DivFeeNameWD" style="width: 40%;"></div>
+                            <div class="FeeHeadValue" id="DivGrossPayableWD" style="width: 30%;"></div>
+                            <div class="FeeHeadValue" id="DivPaidWD" style="width: 30%;"></div>
+                        </div>
+
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="DivFeeTotalWD">
+                                <div class="FeeHead" id="DivFeeNameTWD" style="width: 40%;">Total</div>
+                                <div class="FeeHeadValue" id="DivGrossPayableTWD" style="width: 30%;"></div>
+                                <div class="FeeHeadValue" id="DivPaidTWD" style="width: 30%;"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="new-line">
+                        </div>
+                        <div id="divConcesionWD" class="col-student-detail cert-col-2">
+                            <label>Concession Name : </label>
+                            <span id="lblConcessionNameWD"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. (In WordS) : </label>
+                            <span id="lblRsWordWD"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="lblPaymentModeWD"></span>
+                        </div>
+
+                        <div id="DivRemarksWD" class="col-student-detail cert-col-2">
+                            <label>Remarks : </label>
+                            <span id="lblRemarkWD"></span>
+                        </div>
+
+                        <div id="DivChequeNoWD" class="col-student-detail cert-col-2">
+                            <label>Cheque No/Ref-ID : </label>
+                            <span id="lblChequeNoWD" style="overflow-wrap: break-word;"></span>
+                        </div>
+
+                        <div id="DivBankNameWD" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="lblBankNameWD"></span>
+                        </div>
+                        <div id="DivChequeDateWD" class="col-student-detail cert-col-2">
+                            <label>Cheque/Ref-ID Date. : </label>
+                            <span id="lblChequeDateWD"></span>
+                        </div>
+
+                        <div class="Auth">Authorized sign.</div>
+                    </div>
+                </div>
+
+
+
+                <div id="DivStudentCopyWD" style="display: inline; width: 49%; border: 1px solid black; padding: 1%; float: left;">
+                    <div class="header" style="width: 100%;">
+                        <div class="new-line-Top">
+                            <div id="StudentCopyWD" class="sr-no">Student Copy</div>
+                            <div class="admission-no" style="float: right; width: 50%;">Session : <span id="DivBatchNoCWD"></span></div>
+                            <div class="admission-no" style="display: none;">Affilation: <span id="DivAffilationNoCWD"></span></div>
+                        </div>
+
+                        <div class="school-name" id="DivSchoolLogoCWD">
+                            <img src="" style="width: 10%; float: left" id="ImgLogoCWD">
+                        </div>
+                        <div class="school-name" id="DivSchoolNameCWD"></div>
+                        <div class="school-address" style="FONT-SIZE: 14.5PX;" id="DivSchoolAddressCWD"></div>
+
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" style="width: 30%;" id="DivFeeReceiptCWD"></div>
+                            <div class="Class" style="width: 41%;" id="DivFeeClassCWD"></div>
+                            <div class="Date" style="width: 27%;" id="DivFeeDateCWD"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="lblRegNoCWD"></span>
+                    </div>
+
+                    <div id="DivAdmNoCWD" class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="lblAdmNoCWD"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="lblStudentNameCWD"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label id="lblfmdetailCWD"></label>
+                        <span id="lblFatherNameCWD"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Mobile No. : </label>
+                        <span id="lblMobileNoCWD"></span>
+                    </div>
+                    <div id="divAddressCWD" class="col-student-detail cert-col-2">
+                        <label>Address : </label>
+                        <span id="lblAddressCWD"></span>
+                    </div>
+
+
+                    <div id="divRouteCWD" class="col-student-detail cert-col-2">
+                        <label>Route : </label>
+                        <span id="lblRouteCWD"></span>
+                    </div>
+                    <div id="divDobCWD" class="col-student-detail cert-col-2">
+                        <label>DOB : </label>
+                        <span id="lblDobCWD"></span>
+                    </div>
+
+                    <div id="divMonthsCWD" class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="lblMonthsCWD"></span>
+                    </div>
+
+
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 40%;">FeeName</div>
+                        <div class="FeeHead" style="width: 30%;">Payable</div>
+                        <div class="FeeHead" style="width: 30%;">Paid</div>
+
+                        <div class="Bottom-Line"></div>
+                        <div id="DivFeeDetailCWD" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="DivFeeNameCWD" style="width: 40%;"></div>
+                            <div class="FeeHeadValue" id="DivGrossPayableCWD" style="width: 30%;"></div>
+                            <div class="FeeHeadValue" id="DivPaidCWD" style="width: 30%;"></div>
+                        </div>
+
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="DivFeeTotalCWD">
+                                <div class="FeeHead" id="DivFeeNameTCWD" style="width: 40%;">Total</div>
+                                <div class="FeeHeadValue" id="DivGrossPayableTCWD" style="width: 30%;"></div>
+                                <div class="FeeHeadValue" id="DivPaidTCWD" style="width: 30%;"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="new-line">
+                        </div>
+                        <div id="divConcesionCWD" class="col-student-detail cert-col-2">
+                            <label>Concession Name : </label>
+                            <span id="lblConcessionNameCWD"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. (In WordS) : </label>
+                            <span id="lblRsWordCWD"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="lblPaymentModeCWD"></span>
+                        </div>
+
+                        <div id="DivRemarksCWD" class="col-student-detail cert-col-2">
+                            <label>Remarks : </label>
+                            <span id="lblRemarksCWD"></span>
+                        </div>
+
+                        <div id="DivChequeNoCWD" class="col-student-detail cert-col-2">
+                            <label>Cheque No/Ref-ID : </label>
+                            <span id="lblChequeNoCWD" style="overflow-wrap: break-word;"></span>
+                        </div>
+
+                        <div id="DivBankNameCWD" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="lblBankNameCWD"></span>
+                        </div>
+                        <div id="DivChequeDateCWD" class="col-student-detail cert-col-2">
+                            <label>Cheque/Ref-ID Date. : </label>
+                            <span id="lblChequeDateCWD"></span>
+                        </div>
+
+
+
+
+                        <div class="Auth">Authorized sign.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-last" id="DivLastPrintReceiptWD">
+                <input type="button" id="btnPrintReceiptWD" value="Print">
+                <input type="button" id="btnCancelPrinReceiptWD" value="Close">
+                <input type="button" style="display: none;" id="btnCancelPrinReceipt1WD" value="Close">
+            </div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+    <!----------Slip for Without Discount---------->
+    <!----------Slip for GST---------->
+    <div class="pop2" id="divPrintRegFeeSlipGST">
+        <div class="popinner popinner1" style="width: 21cm; max-height: 88vh; overflow-y: scroll;">
+            <div id="validationPrintGST" class="bm_validation" style="display: none;"><span></span></div>
+
+            <i class="fa fa-times closepop" id='ClosePrintSlipPopUpGST'></i>
+            <i class="fa fa-times closepop" id='ClosePrintSlipPopUp1GST'></i>
+
+            <h2>
+                <label class="popup-title">Print Fee Reciept</label>
+            </h2>
+
+            <div id="DivFeeSlipGST" style="width: 100%; float: left;">
+
+
+                <div id="DivSchoolCopyGST" style="display: inline; width: 49%; border: 1px solid black; padding: 1%; float: left;">
+                    <div class="header" style="width: 100%;">
+                        <div class="new-line-Top">
+                            <div id="SchoolCopyGST" class="sr-no">Office Copy</div>
+                            <div id="CollegeCopyGST" class="sr-no">College Copy</div>
+                            <div class="admission-no" style="float: right; width: 50%;">Session : <span id="DivBatchNoGST"></span></div>
+                            <div class="admission-no" style="display: none;">Affilation: <span id="DivAffilationNoGST"></span></div>
+                        </div>
+
+                        <div class="school-name" id="DivSchoolLogoGST">
+                            <img src="" style="width: 10%; float: left" id="ImgLogoGST">
+                        </div>
+                        <div class="school-name" id="DivSchoolNameGST"></div>
+                        <div class="school-address" style="FONT-SIZE: 14.5PX;" id="DivSchoolAddressGST"></div>
+
+                        <div class="school-address"><span>TAX INVOICE</span></div>
+                        <div class="school-address">
+                            <span>GSTN NO.06ANSPB8076E1ZT </span>
+                        </div>
+
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" style="width: 30%;" id="DivFeeReceiptGST"></div>
+                            <div class="Class" style="width: 41%;" id="DivFeeClassGST"></div>
+                            <div class="Date" style="width: 27%;" id="DivFeeDateGST"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="lblRegNoGST"></span>
+                    </div>
+
+                    <div id="DivAdmNoGST" class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="lblAdmNoGST"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="lblStudentNameGST"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label id="lblfmdetailGST"></label>
+                        <span id="lblFatherNameGST"></span>
+                    </div>
+                    @*<div class="col-student-detail cert-col-2">
+                            <label>Mobile No. : </label>
+                            <span id="lblMobileNoGST"></span>
+                        </div>
+                        <div id="divAddressGST" class="col-student-detail cert-col-2">
+                            <label>Address : </label>
+                            <span id="lblAddressGST"></span>
+                        </div>
+
+
+                          <div id="divRouteGST" class="col-student-detail cert-col-2">
+                            <label>Route : </label>
+                            <span id="lblRouteGST"></span>
+                        </div>
+                          <div id="divDobGST"  class="col-student-detail cert-col-2">
+                            <label>DOB : </label>
+                            <span id="lblDobGST"></span>
+                        </div>*@
+
+                    <div id="divMonthsGST" class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="lblMonthsGST"></span>
+                    </div>
+
+
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 32%;">Description</div>
+                        <div class="FeeHead" style="width: 18%;">Amount</div>
+                        <div class="FeeHead" style="width: 32%;">Tax Detail</div>
+                        <div class="FeeHead" style="width: 18%;">Amount</div>
+
+
+                        <div class="Bottom-Line"></div>
+                        <div id="DivFeeDetailGST" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="DivFeeNameGST" style="width: 32%;"></div>
+                            <div class="FeeHeadValue" id="DivGrossPayableGST" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivConcessionGST" style="width: 32%;"></div>
+                            <div class="FeeHeadValue" id="DivPaidGST" style="width: 18%;"></div>
+                        </div>
+
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="DivFeeTotalGST">
+                                <div class="FeeHead" id="DivFeeNameTGST" style="width: 32%;min-height: 20px;"></div>
+                                <div class="FeeHeadValue" id="DivGrossPayableTGST" style="width: 18%;min-height: 20px;"></div>
+                                <div class="FeeHeadValue" id="DivConcessionTGST" style="width: 32%;">Total Amount</div>
+                                <div class="FeeHeadValue" id="DivPaidTGST" style="width: 18%;"></div>
+
+                            </div>
+                        </div>
+
+                        <div class="new-line">
+                        </div>
+                        @*<div id="divConcesionGST" class="col-student-detail cert-col-2">
+                                <label>Concession Name : </label>
+                                <span id="lblConcessionNameGST"></span>
+                            </div>*@
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. in Words : </label>
+                            <span id="lblRsWordGST"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="lblPaymentModeGST"></span>
+                        </div>
+
+                        @*<div id="DivRemarksGST" class="col-student-detail cert-col-2">
+                                <label>Remarks : </label>
+                                <span id="lblRemarkGST"></span>
+                            </div>
+
+                            <div id="DivChequeNoGST" class="col-student-detail cert-col-2">
+                                <label>Cheque No/Ref-ID : </label>
+                                <span id="lblChequeNoGST" style="overflow-wrap: break-word;"></span>
+                            </div>
+
+                            <div id="DivBankNameGST" class="col-student-detail cert-col-2">
+                                <label>Bank Name : </label>
+                                <span id="lblBankNameGST"></span>
+                            </div>
+                            <div id="DivChequeDateGST" class="col-student-detail cert-col-2">
+                                <label>Cheque/Ref-ID Date. : </label>
+                                <span id="lblChequeDateGST"></span>
+                            </div>*@
+
+                        <div class="col-student-detail cert-col-2">
+                            <label>Note : </label>
+                            <span>Fees once paid will not be refunded.</span>
+                        </div>
+
+                        <div class="Auth">Authorized Signature</div>
+                    </div>
+                </div>
+
+
+
+                <div id="DivStudentCopyGST" style="display: inline; width: 49%; border: 1px solid black; padding: 1%; float: left;">
+                    <div class="header" style="width: 100%;">
+                        <div class="new-line-Top">
+                            <div id="StudentCopyGST" class="sr-no">Parent's Copy</div>
+                            <div class="admission-no" style="float: right; width: 50%;">Session : <span id="DivBatchNoCGST"></span></div>
+                            <div class="admission-no" style="display: none;">Affilation: <span id="DivAffilationNoCGST"></span></div>
+                        </div>
+
+                        <div class="school-name" id="DivSchoolLogoCGST">
+                            <img src="" style="width: 10%; float: left" id="ImgLogoCGST">
+                        </div>
+                        <div class="school-name" id="DivSchoolNameCGST"></div>
+                        <div class="school-address" style="FONT-SIZE: 14.5PX;" id="DivSchoolAddressCGST"></div>
+                        <div class="school-address"><span>TAX INVOICE</span></div>
+                        <div class="school-address">
+                            <span>GSTN NO.06ANSPB8076E1ZT </span>
+                        </div>
+
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" style="width: 30%;" id="DivFeeReceiptCGST"></div>
+                            <div class="Class" style="width: 41%;" id="DivFeeClassCGST"></div>
+                            <div class="Date" style="width: 27%;" id="DivFeeDateCGST"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="lblRegNoCGST"></span>
+                    </div>
+
+                    <div id="DivAdmNoCGST" class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="lblAdmNoCGST"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="lblStudentNameCGST"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label id="lblfmdetailCGST"></label>
+                        <span id="lblFatherNameCGST"></span>
+                    </div>
+                    @* <div class="col-student-detail cert-col-2">
+                            <label>Mobile No. : </label>
+                            <span id="lblMobileNoCGST"></span>
+                        </div>
+                        <div id="divAddressCGST" class="col-student-detail cert-col-2">
+                            <label>Address : </label>
+                            <span id="lblAddressCGST"></span>
+                        </div>
+
+
+                          <div id="divRouteCGST" class="col-student-detail cert-col-2">
+                            <label>Route : </label>
+                            <span id="lblRouteCGST"></span>
+                        </div>
+                          <div id="divDobCGST"  class="col-student-detail cert-col-2">
+                            <label>DOB : </label>
+                            <span id="lblDobCGST"></span>
+                        </div>*@
+
+                    <div id="divMonthsCGST" class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="lblMonthsCGST"></span>
+                    </div>
+
+
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 32%;">Description</div>
+                        <div class="FeeHead" style="width: 18%;">Amount</div>
+                        <div class="FeeHead" style="width: 32%;">Tax Detail</div>
+                        <div class="FeeHead" style="width: 18%;">Amount</div>
+
+
+                        <div class="Bottom-Line"></div>
+                        <div id="DivFeeDetailCGST" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="DivFeeNameCGST" style="width: 32%;"></div>
+                            <div class="FeeHeadValue" id="DivGrossPayableCGST" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivConcessionCGST" style="width: 32%;"></div>
+                            <div class="FeeHeadValue" id="DivPaidCGST" style="width: 18%;"></div>
+                        </div>
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="DivFeeTotalCGST">
+                                <div class="FeeHead" id="DivFeeNameTCGST" style="width: 32%;min-height: 20px;"></div>
+                                <div class="FeeHeadValue" id="DivGrossPayableTCGST" style="width: 18%;min-height: 20px;"></div>
+                                <div class="FeeHeadValue" id="DivConcessionTCGST" style="width: 32%;">Total Amount</div>
+                                <div class="FeeHeadValue" id="DivPaidTCGST" style="width: 18%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="new-line">
+                        </div>
+                        @* <div id="divConcesionCGST" class="col-student-detail cert-col-2">
+                                <label>Concession Name : </label>
+                                <span id="lblConcessionNameCGST"></span>
+                            </div>*@
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. in Words : </label>
+                            <span id="lblRsWordCGST"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="lblPaymentModeCGST"></span>
+                        </div>
+
+                        @* <div id="DivRemarksCGST" class="col-student-detail cert-col-2">
+                                <label>Remarks : </label>
+                                <span id="lblRemarksCGST"></span>
+                            </div>
+
+                            <div id="DivChequeNoCGST" class="col-student-detail cert-col-2">
+                                <label>Cheque No/Ref-ID : </label>
+                                <span id="lblChequeNoCGST" style="overflow-wrap: break-word;"></span>
+                            </div>
+
+                            <div id="DivBankNameCGST" class="col-student-detail cert-col-2">
+                                <label>Bank Name : </label>
+                                <span id="lblBankNameCGST"></span>
+                            </div>
+                            <div id="DivChequeDateCGST" class="col-student-detail cert-col-2">
+                                <label>Cheque/Ref-ID Date. : </label>
+                                <span id="lblChequeDateCGST"></span>
+                            </div>*@
+
+
+                        <div class="col-student-detail cert-col-2">
+                            <label>Note : </label>
+                            <span>Fees once paid will not be refunded.</span>
+                        </div>
+
+                        <div class="Auth">Authorized Signature</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-last" id="DivLastPrintReceiptGST">
+                <input type="button" id="btnPrintReceiptGST" value="Print">
+                <input type="button" id="btnCancelPrinReceiptGST" value="Close">
+                <input type="button" style="display: none;" id="btnCancelPrinReceipt1GST" value="Close">
+            </div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+    <!----------Slip for GST---------->
+    <!----------Slip for SDS Farukhnagar---------->
+    <div class="pop2" id="divPrintRegFeeSlipSDS">
+        <div class="popinner popinner1" style="width: 21cm; max-height: 88vh; overflow-y: scroll;">
+            <div id="validationPrintSDS" class="bm_validation" style="display: none;"><span></span></div>
+
+            <i class="fa fa-times closepop" id='ClosePrintSlipPopUpSDS'></i>
+            <i class="fa fa-times closepop" id='ClosePrintSlipPopUp1SDS'></i>
+
+            <h2>
+                <label class="popup-title">Print Fee Reciept</label>
+            </h2>
+
+            <div id="DivFeeSlipSDS" style="width: 100%; float: left;">
+
+
+                <div id="DivSchoolCopySDS" style="display: inline; width: 49%; border: 1px solid black; padding: 1%; float: left;">
+                    <div class="header" style="width: 100%;">
+                        <div class="new-line-Top">
+                            <div id="SchoolCopySDS" class="sr-no">School Copy</div>
+                            <div id="CollegeCopySDS" class="sr-no">Office Copy</div>
+                            <div class="admission-no" style="float: right; width: 50%;">Session : <span id="DivBatchNoSDS"></span></div>
+                            <div class="admission-no" style="display: none;">Affilation: <span id="DivAffilationNoSDS"></span></div>
+                        </div>
+
+                        <div class="school-name" id="DivSchoolLogoSDS">
+                            <img src="" style="width: 10%; float: left" id="ImgLogoSDS">
+                        </div>
+                        <div class="school-name" style="text-align:center;font-size:20px;font-weight:bold;" id="DivSchoolNameSDS"></div>
+                        <div class="school-address" style="text-align:center;font-size:15px;" id="DivSchoolAddressSDS"></div>
+
+
+
+
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" style="width: 70%;" id="DivFeeReceiptSDS"></div>
+                            <div class="Date" style="width: 30%;float:right;" id="DivFeeDateSDS"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="lblRegNoSDS"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="lblStudentNameSDS"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Father Name : </label>
+                        <span id="lblFatherNameSDS"></span>
+                    </div>
+
+                    <div id="divClassSDS" class="col-student-detail cert-col-2">
+                        <label>Class : </label>
+                        <span id="lblClassSDS"></span>
+                    </div>
+
+                    <div id="DivAdmNoSDS" class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="lblAdmNoSDS"></span>
+                    </div>
+
+                    <div id="DivlblRollNoSDS" class="col-student-detail cert-col-2">
+                        <label>Roll No. : </label>
+                        <span id="lblRollNoSDS"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Mobile No. : </label>
+                        <span id="lblMobileNoSDS"></span>
+                    </div>
+
+                    <div id="divMonthsSDS" class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="lblMonthsSDS"></span>
+                    </div>
+
+
+
+                    <div class="header" style="width: 100%;margin-top:0">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 28%;">FeeName</div>
+                        <div class="FeeHead" style="width: 18%;">Payable</div>
+                        <div class="FeeHead" style="width: 18%;">Dis.</div>
+                        <div class="FeeHead" style="width: 18%;">Paid</div>
+                        <div class="FeeHead" style="width: 18%;">Bal.</div>
+
+                        <div class="Bottom-Line"></div>
+                        <div id="DivFeeDetailSDS" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="DivFeeNameSDS" style="width: 28%;"></div>
+                            <div class="FeeHeadValue" id="DivGrossPayableSDS" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivConcessionSDS" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivPaidSDS" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivBalanceSDS" style="width: 18%;"></div>
+                        </div>
+
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="DivFeeTotalSDS">
+                                <div class="FeeHead" id="DivFeeNameTSDS" style="width: 28%;">Total</div>
+                                <div class="FeeHeadValue" id="DivGrossPayableTSDS" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivConcessionTSDS" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivPaidTSDS" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivBalanceTSDS" style="width: 18%;"></div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="new-line">
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. (In Words) : </label>
+                            <span id="lblRsWordSDS"></span>
+                        </div>
+
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="lblPaymentModeSDS"></span>
+                        </div>
+
+                        <div id="DivRemarksSDS" class="col-student-detail cert-col-2">
+                            <label>Remarks : </label>
+                            <span id="lblRemarkSDS"></span>
+                        </div>
+
+                        <div id="DivChequeNoSDS" class="col-student-detail cert-col-2">
+                            <label>Cheque No/Ref-ID : </label>
+                            <span id="lblChequeNoSDS" style="overflow-wrap: break-word;"></span>
+                        </div>
+
+                        <div id="DivBankNameSDS" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="lblBankNameSDS"></span>
+                        </div>
+                        <div id="DivChequeDateSDS" class="col-student-detail cert-col-2">
+                            <label>Cheque/Ref-ID Date. : </label>
+                            <span id="lblChequeDateSDS"></span>
+                        </div>
+
+                        <div class="Auth">Authorized sign.</div>
+                    </div>
+                </div>
+
+
+
+                <div id="DivStudentCopySDS" style="display: inline; width: 49%; border: 1px solid black; padding: 1%; float: left;margin-left:10px">
+                    <div class="header" style="width: 100%;">
+                        <div class="new-line-Top">
+                            <div id="StudentCopySDS" class="sr-no">Student Copy</div>
+                            <div class="admission-no" style="float: right; width: 50%;">Session : <span id="DivBatchNoCSDS"></span></div>
+                            <div class="admission-no" style="display: none;">Affilation: <span id="DivAffilationNoCSDS"></span></div>
+                        </div>
+
+                        <div class="school-name" id="DivSchoolLogoCSDS">
+                            <img src="" style="width: 10%; float: left" id="ImgLogoCSDS">
+                        </div>
+                        <div class="school-name" style="text-align:center;font-size:20px;font-weight:bold;" id="DivSchoolNameCSDS"></div>
+                        <div class="school-address" style="text-align:center;font-size:15px;" id="DivSchoolAddressCSDS"></div>
+
+
+
+
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" style="width: 70%;" id="DivFeeReceiptCSDS"></div>
+                            <div class="Date" style="width: 30%;float:right" id="DivFeeDateCSDS"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="lblRegNoCSDS"></span>
+                    </div>
+
+
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="lblStudentNameCSDS"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Father Name : </label>
+                        <span id="lblFatherNameCSDS"></span>
+                    </div>
+
+                    <div id="divClassCSDS" class="col-student-detail cert-col-2">
+                        <label>Class : </label>
+                        <span id="lblClassCSDS"></span>
+                    </div>
+
+
+                    <div id="DivAdmNoCSDS" class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="lblAdmNoCSDS"></span>
+                    </div>
+
+                    <div id="DivlblRollNoCSDS" class="col-student-detail cert-col-2">
+                        <label>Roll No. : </label>
+                        <span id="lblRollNoCSDS"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Mobile No. : </label>
+                        <span id="lblMobileNoCSDS"></span>
+                    </div>
+
+                    <div id="divMonthsCWD" class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="lblMonthsCSDS"></span>
+                    </div>
+
+                    <div class="header" style="width: 100%;margin-top:0;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 28%;">FeeName</div>
+                        <div class="FeeHead" style="width: 18%;">Payable</div>
+                        <div class="FeeHead" style="width: 18%;">Dis.</div>
+                        <div class="FeeHead" style="width: 18%;">Paid</div>
+                        <div class="FeeHead" style="width: 18%;">Bal.</div>
+
+                        <div class="Bottom-Line"></div>
+                        <div id="DivFeeDetailCSDS" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="DivFeeNameCSDS" style="width: 28%;"></div>
+                            <div class="FeeHeadValue" id="DivGrossPayableCSDS" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivConcessionCSDS" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivPaidCSDS" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivBalanceCSDS" style="width: 18%;"></div>
+                        </div>
+
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="DivFeeTotalCSDS">
+                                <div class="FeeHead" id="DivFeeNameCTSDS" style="width: 28%;">Total</div>
+                                <div class="FeeHeadValue" id="DivGrossPayableCTSDS" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivConcessionCTSDS" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivPaidCTSDS" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivBalanceCTSDS" style="width: 18%;"></div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="new-line">
+                        </div>
+
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. (In Words) : </label>
+                            <span id="lblRsWordCSDS"></span>
+                        </div>
+
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="lblPaymentModeCSDS"></span>
+                        </div>
+
+                        <div id="DivRemarksCSDS" class="col-student-detail cert-col-2">
+                            <label>Remarks : </label>
+                            <span id="lblRemarksCSDS"></span>
+                        </div>
+
+                        <div id="DivChequeNoCSDS" class="col-student-detail cert-col-2">
+                            <label>Cheque No/Ref-ID : </label>
+                            <span id="lblChequeNoCSDS" style="overflow-wrap: break-word;"></span>
+                        </div>
+
+                        <div id="DivBankNameCSDS" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="lblBankNameCSDS"></span>
+                        </div>
+                        <div id="DivChequeDateCSDS" class="col-student-detail cert-col-2">
+                            <label>Cheque/Ref-ID Date. : </label>
+                            <span id="lblChequeDateCSDS"></span>
+                        </div>
+
+
+
+
+                        <div class="Auth">Authorized sign.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-last" id="DivLastPrintReceiptSDS">
+                <input type="button" id="btnPrintReceiptSDS" value="Print">
+                <input type="button" id="btnCancelPrinReceiptSDS" value="Close">
+                <input type="button" style="display: none;" id="btnCancelPrinReceipt1SDS" value="Close">
+            </div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+    <!----------Slip for SDS Farukhnagar---------->
+
+
+    <div class="pop2" id="divSibling">
+        <div class="popinner" style="max-width: 140vh; max-height: 90vh; overflow-y: scroll;">
+
+            <div id="validationSibling" class="bm_validation" style="display: none;"><span></span></div>
+
+            @*  <i class="fa fa-times closepop" onclick="ClosePopup('divSibling');"></i> @*
+
+                @* <div class="wrapper" id="siblinggrid" style="width: 100%; float: right;">
+                    <table width="200%" class="viewd milestonetbl" id="siblinglist">
+                        <tbody></tbody>
+                    </table>
+                </div>*@
+            <div class="col-last">
+
+                <input type="button" id="btnclose" onclick="ClosePopup('divSibling');" value="Close">
+            </div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+    <!--------------------------------------Himanshu--------------------------------------->
+
+
+
+    <div class="pop2" id="divPrintSingleSmall2">
+        <div class="popinner popinner1" style="width: 21cm; max-height: 88vh; overflow-y: scroll;">
+            <div class="Lead_Loader" id="loader_Add_Class_Print_Fee" style="display: none;">
+                <div class="LeadCssLoader"></div>
+            </div>
+            <div id="validationPrintRegFeeSingleSmall" class="bm_validation" style="display: none;"><span></span></div>
+            <i class="fa fa-times closepop" id='MyHideProcess3SingleSmall'></i>
+            @*<i class="fa fa-times closepop" onclick="ClosePopup('divPrintRegFeeSlip');"></i>*@
+
+            <h2>
+                <label class="popup-title">Print Fee Reciept</label>
+            </h2>
+
+            <div id="DivFeeSlipSingleSmall" style="width: 100%; float: left;">
+                <div id="DivSchoolCopy2" style="display: inline; width: 49%; border: 1px solid black; padding: 1%; float: left;">
+                    @* <i id="ClosePrintSlipPopUp" class="fa fa-times closepop"></i>*@
+                    <div class="header" style="width: 100%;">
+                        <div class="new-line-Top">
+                            <div id="SchoolCopySingleSmall" class="sr-no">School Copy</div>
+                            <div id="CollegeCopySingleSmall" class="sr-no">College Copy</div>
+                            @*  <div class="title" id="DivBatchNo-">Session: <span id="DivBatchNo"></span></div>*@
+                            <div class="admission-no" style="float: right; width: 50%;" id="DivBatchNoSingleSmall-">Session : <span id="DivBatchNoSingleSmall">@*2021-2022*@</span></div>
+                            <div class="admission-no" style="display: none;">Affilation: <span id="DivAffilationNoSingleSmall"></span></div>
+                        </div>
+
+                        <div class="school-name" id="DivSchoolLogoSingleSmall">
+                            <img src="" style="width: 10%; float: left" id="ImgLogoSingleSmall">
+                        </div>
+                        <div class="school-name" id="DivSchoolNameSingleSmall"></div>
+                        <div class="school-address" style="FONT-SIZE: 14.5PX;" id="DivSchoolAddressSingleSmall"></div>
+
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" style="width: 30%;" id="DivFeeReceiptSingleSmall"></div>
+                            <div class="Class" style="width: 41%;" id="DivFeeClassSingleSmall"></div>
+                            <div class="Date" style="width: 27%;" id="DivFeeDateSingleSmall"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="lblRegNoSingleSmall"></span>
+                    </div>
+
+                    <div id="2divadmno_3SingleSmall" class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="2lblAdmNo_3SingleSmall"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="lblStudentNameSingleSmall"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label id="lblfmdetailSingleSmall"></label>
+                        <span id="lblFatherNameSingleSmall"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Mobile No. : </label>
+                        <span id="lblMobileNoSingleSmall"></span>
+                    </div>
+                    <div id="divAddressSingleSmall" class="col-student-detail cert-col-2">
+                        <label>Address : </label>
+                        <span id="lblAddressSingleSmall"></span>
+                    </div>
+
+                    <div id="divAddress2SingleSmall" class="col-student-detail cert-col-2">
+                        <label>Address : </label>
+                        <span id="lblAddress2SingleSmall"></span>
+                    </div>
+                    <div id="divRouteSingleSmall" class="col-student-detail cert-col-2">
+                        <label>Route : </label>
+                        <span id="lblRouteSingleSmall"></span>
+                    </div>
+                    <div id="divDobSingleSmall" class="col-student-detail cert-col-2">
+                        <label>DOB : </label>
+                        <span id="lblDobSingleSmall"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="lblMonthsSingleSmall"></span>
+                    </div>
+
+
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 28%;">FeeName</div>
+                        <div class="FeeHead" style="width: 18%;">Payable</div>
+                        <div class="FeeHead" style="width: 18%;">Dis.</div>
+                        <div class="FeeHead" style="width: 18%;">Paid</div>
+                        <div class="FeeHead" style="width: 18%;">Bal.</div>
+
+                        <div class="Bottom-Line"></div>
+                        <div id="DivFeeDetailSingleSmall" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="DivFeeNameSingleSmall" style="width: 28%;"></div>
+                            <div class="FeeHeadValue" id="DivGrossPayableSingleSmall" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivConcessionSingleSmall" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivPaidSingleSmall" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivBalanceSingleSmall" style="width: 18%;"></div>
+                        </div>
+
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="DivFeeTotalSingleSmall">
+                                <div class="FeeHead" id="DivFeeNametSingleSmall" style="width: 28%;">Total</div>
+                                <div class="FeeHeadValue" id="DivGrossPayabletSingleSmall" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivConcessiontSingleSmall" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivPaidtSingleSmall" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivBalancetSingleSmall" style="width: 18%;"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="new-line">
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Concession Name : </label>
+                            <span id="lblConcessionNameSingleSmall"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. (In WordS) : </label>
+                            <span id="lblRsWordSingleSmall"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="lblPaymentModeSchoolSingleSmall"></span>
+                        </div>
+                        @* This is Done By honey*@
+                        <div id="DivRemarksSingleSmall" class="col-student-detail cert-col-2">
+                            <label>Remarks : </label>
+                            <span id="lblRemarkSchoolSingleSmall"></span>
+                        </div>
+
+                        <div id="DivChequeNoSingleSmall" class="col-student-detail cert-col-2">
+                            <label>Cheque No/Ref-ID : </label>
+                            <span id="lblChequeNoSingleSmall" style="overflow-wrap: break-word;"></span>
+                        </div>
+
+                        <div id="DivBankNameSingleSmall" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="lblBankNameSingleSmall"></span>
+                        </div>
+                        <div id="DivChequeDateSingleSmall" class="col-student-detail cert-col-2">
+                            <label>Cheque/Ref-ID Date. : </label>
+                            <span id="lblChequeDateSingleSmall"></span>
+                        </div>
+
+
+
+
+                        <div class="Auth">Authorized sign.</div>
+                    </div>
+                </div>
+                <div style="display: inline; width: 1%; float: left;">
+                    <table class="viewd milestonetbl PlacedUnPlaced">
+                    </table>
+                </div>
+
+                <div id="DivStudentCopy2" style=" display: inline; width: 65%; border: 1px solid black; padding: 1%; float: left;">
+                    <div class="header" style="width: 100%;">
+                        <div class="new-line-Top">
+                            <div class="sr-no">Student Copy</div>
+                            @*<div class="title" id="DivBatchNoC">2021-2022</div>*@
+                            <div class="admission-no" style="float: right; width: 50%;" id="DivBatchNoCSingleSmall-">Session : <span id="DivBatchNoCSingleSmall">@*2021-2022*@</span></div>
+                            <div class="admission-no" style="display: none;">Affilation:<span id="DivAffilationNoCSingleSmall"></span></div>
+                        </div>
+                        <div id="DivSchoolLogo2SingleSmall">
+                            <img src="" style="width: 18%; float: left" id="ImgLogo2SingleSmall">
+                        </div>
+                        <div style=" TEXT-ALIGN: CENTER;
+    FONT-SIZE: 22PX;
+    FONT-WEIGHT: BOLD;" id="DivSchoolNameCSingleSmall"></div>
+                        <div class="school-address" style="FONT-SIZE: 16PX;text-align:center" id="DivSchoolAddressCSingleSmall"></div>
+                        <div class="school-address" style="FONT-SIZE: 16PX;
+
+    text-align: center;
+    padding-left: 35px;" id="lblAddressLine2SingleSmall"></div>
+                        <div class="school-address" style="FONT-SIZE: 16PX;
+
+    text-align: center;
+    padding-left: 35px;" id="lblAddressLine3SingleSmall"></div>
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" style="width: 30%;" id="DivFeeReceiptCSingleSmall"></div>
+                            <div class="Class" style="width: 40%; text-align:center" id="DivFeeClassCSingleSmall"></div>
+                            <div class="Date" style="width: 30%;" id="DivFeeDateCSingleSmall"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="lblRegNoCSingleSmall"></span>
+                    </div>
+
+                    <div id="2divAdmnoC_3SingleSmall" class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="2lblAdmNoC_3SingleSmall"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="lblStudentNameCSingleSmall"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label id="lblfmdetailCSingleSmall"></label>
+                        <span id="lblFatherNameCSingleSmall"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Mobile No. : </label>
+                        <span id="lblMobileNoCSingleSmall"></span>
+                    </div>
+                    <div id="divAddressCSingleSmall" class="col-student-detail cert-col-2">
+                        <label>Address : </label>
+                        <span id="lblAddressCSingleSmall"></span>
+                    </div>
+                    <div id="divRouteCSingleSmall" class="col-student-detail cert-col-2">
+                        <label>Route : </label>
+                        <span id="lblRouteCSingleSmall"></span>
+                    </div>
+                    <div id="divDobCSingleSmall" class="col-student-detail cert-col-2">
+                        <label>DOB : </label>
+                        <span id="lblDobCSingleSmall"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="lblMonthsCSingleSmall"></span>
+                    </div>
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 28%;">FeeName</div>
+                        <div class="FeeHead" style="width: 18%;">Payable</div>
+                        <div class="FeeHead" style="width: 18%;">Dis.</div>
+                        <div class="FeeHead" style="width: 18%;">Paid</div>
+                        <div class="FeeHead" style="width: 18%;">Bal.</div>
+
+                        <div class="Bottom-Line"></div>
+                        <div id="DivFeeDetailCSingleSmall" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="DivFeeNameCSingleSmall" style="width: 28%;"></div>
+                            <div class="FeeHeadValue" id="DivGrossPayableCSingleSmall" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivConcessionCSingleSmall" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivPaidCSingleSmall" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="DivBalanceCSingleSmall" style="width: 18%;"></div>
+                        </div>
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="DivFeeTotalCSingleSmall">
+                                <div class="FeeHead" id="DivFeeNametCSingleSmall" style="width: 28%;">Total</div>
+                                <div class="FeeHeadValue" id="DivGrossPayabletCSingleSmall" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivConcessiontCSingleSmall" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivPaidtCSingleSmall" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="DivBalancetCSingleSmall" style="width: 18%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="new-line">
+                        </div>
+                        <div id="divConcesionCSingleSmall" class="col-student-detail cert-col-2">
+                            <label>Concession Name : </label>
+                            <span id="lblConcessionNameCSingleSmall"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. (In Words) : </label>
+                            <span id="lblRsWordCSingleSmall"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="lblPaymentModeStudentSingleSmall"></span>
+                        </div>
+                        <div id="DivRemarksCSingleSmall" class="col-student-detail cert-col-2">
+                            <label>Remarks : </label>
+                            <span id="lblRemarkSchoolCSingleSmall"></span>
+                        </div>
+
+                        <div id="DivChequeNoStudentSingleSmall" class="col-student-detail cert-col-2">
+                            <label>Cheque No/Ref-ID : </label>
+                            <span id="lblChequeNoStudentSingleSmall" style="overflow-wrap: break-word;"></span>
+                        </div>
+
+                        <div id="DivBankNameStudentSingleSmall" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="lblBankNameStudentSingleSmall"></span>
+                        </div>
+
+                        <div id="DivChequeDateStudentSingleSmall" class="col-student-detail cert-col-2">
+                            <label>Cheque/Ref-ID  Date. : </label>
+                            <span id="lblChequeDateStudentSingleSmall"></span>
+                        </div>
+
+                        <div class="Auth">Authorized sign.</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-last" id="DivLastPrintReceipt">
+                <input type="button" id="btnPrintReceiptSingleSmall" value="Print">
+                <input type="button" id="btnCancelPrinReceiptSingleSmall" value="Close">
+                <input type="button" style="display: none;" id="btnCancelPrinReceipt1SingleSmall" value="Close">
+
+
+
+                @*onclick="ClosePopup('divPrintRegFeeSlip');"*@
+            </div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+
+
+    <!--------------------------------------Himanshu--------------------------------------->
+    <!--------------------------------------landscape both format--------------------------------------->
+
+    <div class="pop2" id="divPrintRegFeeSlipLandscapeBoth">
+
+        <div class="popinner popinner1" style="width: 50cm; max-height: 80vh; overflow-y: scroll;">
+            <div class="Lead_Loader" id="2loader_Add_Class_Print_Fee" style="display: none;">
+                <div class="LeadCssLoader"></div>
+            </div>
+            <div id="2validationPrintRegFee" class="bm_validation" style="display: none;"><span></span></div>
+
+
+            <h2>
+                <label class="popup-title">Print Fee Reciept</label>
+            </h2>
+
+            <div id="2DivFeeSlip" style="width: 100%; float: left;">
+                <div style="display: inline; width: 30%; border: 1px solid black; padding: 1%; float: left;">
+                    @* <i id="ClosePrintSlipPopUp" class="fa fa-times closepop"></i>*@
+                    <div class="header" style="width: 100%;">
+                        <div class="new-line-Top">
+                            <div id="2DivSchoolLogo" style="width: 18%; float: left">
+                                <img src="" style="width: 100%; float: left" id="2ImgLogo">
+                            </div>
+                            <div style="width: 82%; float: left">
+                                <p style="width: 100%; text-align: right"><b>School Copy</b></p>
+                                @*  <div class="title" id="DivBatchNo-">Session: <span id="DivBatchNo"></span></div>*@
+                                @*  <div class="admission-no" style="float: right; width: 50%;" id="2DivBatchNo-">Session : <span id="2DivBatchNo2">2021-2022</span></div>*@
+
+
+                                <p style="text-align: right"><b>Affilation No: <span id="2DivAffilationNo"></span></b></p>
+                                <p style="text-align: right"><b>Mobile No: <span id="2DivMobileNo"></span></b></p>
+                            </div>
+
+
+
+                        </div>
+
+                        @*   <div class="school-name" id="2DivSchoolLogo"><img src="" style="width:15%;float:left" id="2ImgLogo"></div>*@
+                        <div class="school-name" id="2DivSchoolName"></div>
+                        <div class="school-address" style="FONT-SIZE: 14.5PX; font-weight: 700" id="2DivSchoolAddress"></div>
+                        <div class="school-address" style="FONT-SIZE: 14.5PX; font-weight: 700" id="2DivSchoolAddress2"></div>
+
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" id="2DivFeeReceipt"></div>
+                            <div class="Class" id="2DivFeeClass"></div>
+                            <div class="Date" id="2DivFeeDate"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="2lblRegNo"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="2lblStudentName"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Father Name : </label>
+                        <span id="2lblFatherName"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Address : </label>
+                        <span id="2lblAddress"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="2lblMonths"></span>
+                    </div>
+
+
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 28%;">FeeName</div>
+                        <div class="FeeHead" style="width: 18%;">Payable</div>
+                        <div class="FeeHead" style="width: 18%;">Dis.</div>
+                        <div class="FeeHead" style="width: 18%;">Paid</div>
+                        <div class="FeeHead" style="width: 18%;">Bal.</div>
+
+                        <div class="Bottom-Line"></div>
+                        <div id="2DivFeeDetail" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="2DivFeeName" style="width: 28%;"></div>
+                            <div class="FeeHeadValue" id="2DivGrossPayable" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivConcession" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivPaid" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivBalance" style="width: 18%;"></div>
+                        </div>
+
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="2DivFeeTotal">
+                                <div class="FeeHead" id="2DivFeeNamet" style="width: 28%;">Total</div>
+                                <div class="FeeHeadValue" id="2DivGrossPayablet" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivConcessiont" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivPaidt" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivBalancet" style="width: 18%;"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="new-line">
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. (In WordS) : </label>
+                            <span id="2lblRsWord"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="2lblPaymentModeSchool"></span>
+                        </div>
+
+                        <div id="2DivChequeNo" class="col-student-detail cert-col-2">
+                            <label>Cheque No. : </label>
+                            <span id="2lblChequeNo"></span>
+                        </div>
+
+                        <div id="2DivBankName" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="2lblBankName"></span>
+                        </div>
+
+
+                        <div class="Auth">Authorized sign.</div>
+                    </div>
+                </div>
+                <div style="display: inline; width: 1%; float: left;">
+                    <table class="viewd milestonetbl PlacedUnPlaced">
+                    </table>
+                </div>
+
+                <div style="display: inline; width: 30%; border: 1px solid black; padding: 1%; float: left;">
+                    <div class="header" style="width: 100%;">
+
+                        <div class="new-line-Top">
+                            <div id="2DivSchoolLogo2" style="width: 18%; float: left">
+                                <img src="" style="width: 100%; float: left" id="2ImgLogo2">
+                            </div>
+                            <div style="width: 82%; float: left">
+                                <p style="width: 100%; text-align: right"><b>Parent Copy</b></p>
+                                @*  <div class="title" id="DivBatchNo-">Session: <span id="DivBatchNo"></span></div>*@
+                                @*  <div class="admission-no" style="float: right; width: 50%;" id="2DivBatchNo-">Session : <span id="2DivBatchNo2">2021-2022</span></div>*@
+
+
+                                <p style="text-align: right"><b>Affilation No: <span id="2DivAffilationNoC"></span></b></p>
+                                <p style="text-align: right"><b>Mobile No: <span id="2DivMobileNo2"></span></b></p>
+                            </div>
+
+
+
+                        </div>
+
+                        @*  <div class="new-line-Top">
+                                <div class="sr-no">Student Copy</div>
+                              <div class="title" id="DivBatchNoC">2021-2022</div>
+                                <div class="admission-no" style="float: right; width: 50%;" id="2DivBatchNoC-">Session : <span id="2DivBatchNoC">2021-2022</span></div>
+                                <div class="admission-no"  >Affilation No:<span id="2DivAffilationNoC"></span></div>
+                                 <div class="admission-no">Mobile No: <span id="2DivMobileNo2"></span></div>
+                            </div>*@
+                        @*    <div class="school-name" id="2DivSchoolLogo2"><img src="" style="width:15%;float:left" id="2ImgLogo2"></div>*@
+                        <div class="school-name" id="2DivSchoolNameC"></div>
+                        <div class="school-address" style="FONT-SIZE: 14.5PX; font-weight: 700" id="2DivSchoolAddressC"></div>
+                        <div class="school-address" style="FONT-SIZE: 14.5PX; font-weight: 700" id="2DivSchoolAddressC2"></div>
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" id="2DivFeeReceiptC"></div>
+                            <div class="Class" id="2DivFeeClassC"></div>
+                            <div class="Date" id="2DivFeeDateC"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="2lblRegNoC"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="2lblStudentNameC"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Father Name : </label>
+                        <span id="2lblFatherNameC"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Address : </label>
+                        <span id="2lblAddressC"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="2lblMonthsC"></span>
+                    </div>
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 28%;">FeeName</div>
+                        <div class="FeeHead" style="width: 18%;">Payable</div>
+                        <div class="FeeHead" style="width: 18%;">Dis.</div>
+                        <div class="FeeHead" style="width: 18%;">Paid</div>
+                        <div class="FeeHead" style="width: 18%;">Bal.</div>
+
+
+                        <div id="2DivFeeDetailC" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="2DivFeeNameC" style="width: 28%;"></div>
+                            <div class="FeeHeadValue" id="2DivGrossPayableC" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivConcessionC" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivPaidC" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivBalanceC" style="width: 18%;"></div>
+                        </div>
+
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="2DivFeeTotalC">
+                                <div class="FeeHead" id="2DivFeeNametC" style="width: 28%;">Total</div>
+                                <div class="FeeHeadValue" id="2DivGrossPayabletC" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivConcessiontC" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivPaidtC" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivBalancetC" style="width: 18%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="new-line">
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. (In Words) : </label>
+                            <span id="2lblRsWordC"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="2lblPaymentModeStudent"></span>
+                        </div>
+
+                        <div id="2DivChequeNoStudent" class="col-student-detail cert-col-2">
+                            <label>Cheque No. : </label>
+                            <span id="2lblChequeNoStudent"></span>
+                        </div>
+
+                        <div id="2DivBankNameStudent" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="2lblBankNameStudent"></span>
+                        </div>
+
+                        <div class="Auth">Authorized sign.</div>
+                    </div>
+                </div>
+
+                <div style="display: inline; width: 1%; float: left;">
+                    <table class="viewd milestonetbl PlacedUnPlaced">
+                    </table>
+                </div>
+
+
+            </div>
+            <div class="col-last" id="2DivLastPrintReceipt">
+                <input type="button" id="2btnPrintReceipt" value="Print">
+                <input type="button" id="2btnCancelPrinReceipt" value="Close">
+                <input type="button" style="display: none;" id="2btnCancelPrinReceipt1" value="Close">
+                @*onclick="ClosePopup('divPrintRegFeeSlip');"*@
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
+
+
+
+    </div>
+
+    <div class="pop2" id="divPrintRegFeeSlipLandscapeBoth_3">
+
+        <div class="popinner popinner1" style="width: 50cm; max-height: 80vh; overflow-y: scroll;">
+            <div class="Lead_Loader" id="2loader_Add_Class_Print_Fee_3" style="display: none;">
+                <div class="LeadCssLoader"></div>
+            </div>
+            <div id="2validationPrintRegFee_3" class="bm_validation" style="display: none;"><span></span></div>
+
+
+            <h2>
+                <label class="popup-title">Print Fee Reciept</label>
+            </h2>
+
+            <div id="2DivFeeSlip_3" style="width: 100%; float: left;">
+                <div style="display: inline; width: 32%; border: 1px solid black; padding: 1%; float: left;">
+                    @* <i id="ClosePrintSlipPopUp" class="fa fa-times closepop"></i>*@
+                    <div class="header" style="width: 100%;">
+                        <div class="new-line-Top">
+
+                            <div class="sr-no left">School Copy</div>
+
+                            <div class="admission-no" style="float: right; width: 50%;" id="DivBatch">Session : <span id="DivBatchN">@*2021-2022*@</span></div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="school-name" id="2DivSchoolLogo_3">
+                                    <img src="" style="width: 10%; float: left" id="2ImgLogo_3">
+                                </p>
+                            </div>
+                            <div class="col-6">
+                                <p class="school-name" id="2DivSchoolName_3"></p>
+
+                                <p class="school-address" style="FONT-SIZE: 14.5PX;" id="2DivSchoolAddress_3"></p>
+                            </div>
+                        </div>
+
+
+
+
+
+                        @*                              <div  id="2DivSchoolLogo_3" style="width:18%;float:left"><img src="" style="width:100%;float:left" id="2ImgLogo_3"></div>
+
+                                                        <div style="width:82%;float:left">
+                                                        <p style="width:100%;text-align:right"><b>School Copy</b></p>
+
+
+
+                                                        <p style="text-align:right"><b>Affilation No: <span id="2DivAffilationNo_3"></span></b></p>
+                            <p style="text-align:right"><b>Mobile No: <span id="2DivMobileNo_3"></span></b></p>
+                                                              </div>
+
+
+
+                                                    </div>
+
+
+                                                    <div class="school-name" id="2DivSchoolName_3"></div>
+                                                    <div class="school-address" style="FONT-SIZE: 14.5PX;font-weight:700" id="2DivSchoolAddress_3"></div>
+                                                      <div class="school-address" style="FONT-SIZE: 14.5PX;font-weight:700" id="2DivSchoolAddress2_3"></div>*@
+
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" id="2DivFeeReceipt_3"></div>
+                            <div class="Class" id="2DivFeeClass_3"></div>
+                            <div class="Date" id="2DivFeeDate_3"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="2lblRegNo_3"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="2lblStudentName_3"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Father Name : </label>
+                        <span id="2lblFatherName_3"></span>
+                    </div>
+                    @*                    < honey nen add kiya hai>*@
+                    <div class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="2lblAdmissionNo_3"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Address : </label>
+                        <span id="2lblAddress_3"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="2lblMonths_3"></span>
+                    </div>
+
+
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 28%;">FeeName</div>
+                        <div class="FeeHead" style="width: 18%;">Payable</div>
+                        <div class="FeeHead" style="width: 18%;">Dis.</div>
+                        <div class="FeeHead" style="width: 18%;">Paid</div>
+                        <div class="FeeHead" style="width: 18%;">Bal.</div>
+
+                        <div class="Bottom-Line"></div>
+                        <div id="2DivFeeDetail_3" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="2DivFeeName_3" style="width: 28%;"></div>
+                            <div class="FeeHeadValue" id="2DivGrossPayable_3" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivConcession_3" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivPaid_3" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivBalance_3" style="width: 18%;"></div>
+                        </div>
+
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="2DivFeeTotal_3">
+                                <div class="FeeHead" id="2DivFeeNamet_3" style="width: 28%;">Total</div>
+                                <div class="FeeHeadValue" id="2DivGrossPayablet_3" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivConcessiont_3" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivPaidt_3" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivBalancet_3" style="width: 18%;"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="new-line">
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. (In WordS) : </label>
+                            <span id="2lblRsWord_3"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="2lblPaymentModeSchool_3"></span>
+                        </div>
+
+                        <div id="2DivChequeNo_3" class="col-student-detail cert-col-2">
+                            <label>Cheque No. : </label>
+                            <span id="2lblChequeNo_3"></span>
+                        </div>
+
+                        <div id="2DivBankName_3" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="2lblBankName_3"></span>
+                        </div>
+
+
+                        <div class="Auth">Authorized sign.</div>
+                    </div>
+                </div>
+
+                <div style="display: inline; width: 1%; float: left;">
+                    <table class="viewd milestonetbl PlacedUnPlaced">
+                    </table>
+                </div>
+
+                <div style="display: inline; width: 32%; border: 1px solid black; padding: 1%; float: left;">
+                    <div class="header" style="width: 100%;">
+
+                        <div class="new-line-Top">
+
+                            <div class="sr-no left">Parent Copy</div>
+
+                            <div class="admission-no" style="float: right; width: 50%;" id="DivBatch-3">Session : <span id="DivBatc">@*2021-2022*@</span></div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="school-name" id="2DivSchoolLogo2_3">
+                                    <img src="" style="width: 10%; float: left" id="2ImgLogo2_3">
+                                </p>
+                            </div>
+                            <div class="col-6">
+                                <p class="school-name" id="2DivSchoolNameC_3"></p>
+
+                                <p class="school-address" style="FONT-SIZE: 14.5PX;" id="2DivSchoolAddressC2_3"></p>
+                            </div>
+                        </div>
+
+
+
+
+                        @*<div class="school-name" id="2DivSchoolNameC_3"></div>
+                            <div class="school-address" style="FONT-SIZE: 14.5PX;font-weight:700" id="2DivSchoolAddressC_3"></div>
+                             <div class="school-address" style="FONT-SIZE: 14.5PX;font-weight:700" id="2DivSchoolAddressC2_3"></div>*@
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" id="2DivFeeReceiptC_3"></div>
+                            <div class="Class" id="2DivFeeClassC_3"></div>
+                            <div class="Date" id="2DivFeeDateC_3"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="2lblRegNoC_3"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="2lblStudentNameC_3"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Father Name : </label>
+                        <span id="2lblFatherNameC_3"></span>
+                    </div>
+                    @*                    < honey nen add kiya hai>*@
+                    <div class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="2lblAdmissionNoC_3"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Address : </label>
+                        <span id="2lblAddressC_3"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="2lblMonthsC_3"></span>
+                    </div>
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 28%;">FeeName</div>
+                        <div class="FeeHead" style="width: 18%;">Payable</div>
+                        <div class="FeeHead" style="width: 18%;">Dis.</div>
+                        <div class="FeeHead" style="width: 18%;">Paid</div>
+                        <div class="FeeHead" style="width: 18%;">Bal.</div>
+                        <div class="Bottom-Line"></div>
+
+                        <div id="2DivFeeDetailC_3" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="2DivFeeNameC_3" style="width: 28%;"></div>
+                            <div class="FeeHeadValue" id="2DivGrossPayableC_3" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivConcessionC_3" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivPaidC_3" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivBalanceC_3" style="width: 18%;"></div>
+                        </div>
+
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="2DivFeeTotalC_3">
+                                <div class="FeeHead" id="2DivFeeNametC_3" style="width: 28%;">Total</div>
+                                <div class="FeeHeadValue" id="2DivGrossPayabletC_3" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivConcessiontC_3" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivPaidtC_3" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivBalancetC_3" style="width: 18%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="new-line">
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. (In Words) : </label>
+                            <span id="2lblRsWordC_3"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="2lblPaymentModeStudent_3"></span>
+                        </div>
+
+                        <div id="2DivChequeNoStudent_3" class="col-student-detail cert-col-2">
+                            <label>Cheque No. : </label>
+                            <span id="2lblChequeNoStudent_3"></span>
+                        </div>
+
+                        <div id="2DivBankNameStudent_3" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="2lblBankNameStudent_3"></span>
+                        </div>
+
+                        <div class="Auth">Authorized sign.</div>
+                    </div>
+                </div>
+
+                <div style="display: inline; width: 1%; float: left;">
+                    <table class="viewd milestonetbl PlacedUnPlaced">
+                    </table>
+                </div>
+
+                <div style="display: inline; width: 32%; border: 1px solid black; padding: 1%; float: left;">
+                    <div class="header" style="width: 100%;">
+
+                        <div class="new-line-Top">
+                            <div class="sr-no left">Bank Copy</div>
+
+                            <div class="admission-no" style="float: right; width: 50%;" id="DivBatch-31">Session : <span id="DivBatc21">@*2021-2022*@</span></div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="school-name" id="2DivSchoolLogo2_3_1">
+                                    <img src="" style="width: 10%; float: left" id="2ImgLogo2_3_1">
+                                </p>
+                            </div>
+                            <div class="col-6">
+                                <p class="school-name" id="2DivSchoolNameC_31"></p>
+
+                                <p class="school-address" style="FONT-SIZE: 14.5PX;" id="2DivSchoolAddressC2_31"></p>
+                            </div>
+                        </div>
+
+                        <div class="Top-Line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" id="2DivFeeReceiptC_31"></div>
+                            <div class="Class" id="2DivFeeClassC_31"></div>
+                            <div class="Date" id="2DivFeeDateC_31"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Id : </label>
+                        <span id="2lblRegNoC_31"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Student Name : </label>
+                        <span id="2lblStudentNameC_31"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Father Name : </label>
+                        <span id="2lblFatherNameC_31"></span>
+                    </div>
+                    @*                    < honey nen add kiya hai>*@
+                    <div class="col-student-detail cert-col-2">
+                        <label>Admission No. : </label>
+                        <span id="2lblAdmissionNoC_31"></span>
+                    </div>
+
+                    <div class="col-student-detail cert-col-2">
+                        <label>Address : </label>
+                        <span id="2lblAddressC_31"></span>
+                    </div>
+                    <div class="col-student-detail cert-col-2">
+                        <label>Months : </label>
+                        <span id="2lblMonthsC_31"></span>
+                    </div>
+                    <div class="header" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 28%;">FeeName</div>
+                        <div class="FeeHead" style="width: 18%;">Payable</div>
+                        <div class="FeeHead" style="width: 18%;">Dis.</div>
+                        <div class="FeeHead" style="width: 18%;">Paid</div>
+                        <div class="FeeHead" style="width: 18%;">Bal.</div>
+
+                        <div class="Bottom-Line"></div>
+                        <div id="2DivFeeDetailC_31" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="2DivFeeNameC_31" style="width: 28%;"></div>
+                            <div class="FeeHeadValue" id="2DivGrossPayableC_31" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivConcessionC_31" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivPaidC_31" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivBalanceC_31" style="width: 18%;"></div>
+                        </div>
+
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="2DivFeeTotalC_31">
+                                <div class="FeeHead" id="2DivFeeNametC_31" style="width: 28%;">Total</div>
+                                <div class="FeeHeadValue" id="2DivGrossPayabletC_31" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivConcessiontC_31" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivPaidtC_31" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivBalancetC_31" style="width: 18%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="new-line">
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Rs. (In Words) : </label>
+                            <span id="2lblRsWordC_31"></span>
+                        </div>
+                        <div class="col-student-detail cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="2lblPaymentModeStudent_31"></span>
+                        </div>
+
+                        <div id="2DivChequeNoStudent_31" class="col-student-detail cert-col-2">
+                            <label>Cheque No. : </label>
+                            <span id="2lblChequeNoStudent_31"></span>
+                        </div>
+
+                        <div id="2DivBankNameStudent_31" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="2lblBankNameStudent_31"></span>
+                        </div>
+
+                        <div class="Auth">Authorized sign.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-last" id="2DivLastPrintReceipt_3">
+                <input type="button" id="2btnPrintReceipt_3" value="Print">
+                <input type="button" style="display: none;" id="2btnCancelPrinReceipt_3" value="Close">
+                <input type="button" style="display: none;" id="2btnCancelPrinReceipt1_3" value="Close">
+                @*onclick="ClosePopup('divPrintRegFeeSlip');"*@
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
+
+
+
+    </div>
+
+    <div class="pop2" id="divPrintSingleSlip">
+
+        <div class="popinner popinner1" style="width: 50cm; max-height: 80vh; overflow-y: scroll;">
+            <div class="Lead_Loader" id="2loader_Add_Class_Print_Fee_30" style="display: none;">
+                <div class="LeadCssLoader"></div>
+            </div>
+            <div id="2validationPrintRegFee_30" class="bm_validation" style="display: none;"><span></span></div>
+
+            @*  <i class="fa fa-times closepop" onclick="ClosePopup('divPrintSingleSlip');"></i>*@
+
+            <i class="fa fa-times closepop" id='MyHideProcess2'></i>
+
+            <h2>
+                <label class="popup-title">Print Fee Reciept</label>
+            </h2>
+
+            <div id="2DivFeeSlip_30" style="width: 100%; float: left;">
+
+                <div style="text-transform: uppercase;display: inline; width: 100%; border: 1px solid black; padding: 1%; float: left;">
+                    <div class="header" style="width: 100%;">
+
+                        <div class="new-line-Top">
+
+                            <div class="sr-no left">Parents' Copy</div>
+
+                            <div class="admission-no" style="float: right; width: 50%;" id="DivBatch-30">Session : <span id="2DivBatchNo_30">@*2022-2023*@</span></div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="school-name" id="2DivSchoolLogo2_30">
+                                    @*                                    <img src="" style="width: 10%; float: left" id="2ImgLogo2_30">*@
+                                    <img src="" style="width: 13%; height: 76px; float: left" id="2ImgLogo2_30">
+                                </p>
+                            </div>
+                            <div class="col-6">
+                                <p class="school-name" id="2DivSchoolNameC_30"></p>
+
+                                <p class="school-address" style="FONT-SIZE: 14.5PX;" id="2DivSchoolAddressC2_30"></p>
+                            </div>
+                        </div>
+
+
+
+
+                        @*<div class="school-name" id="2DivSchoolNameC_30"></div>
+                            <div class="school-address" style="FONT-SIZE: 14.5PX;font-weight:700" id="2DivSchoolAddressC_30"></div>
+                             <div class="school-address" style="FONT-SIZE: 14.5PX;font-weight:700" id="2DivSchoolAddressC2_30"></div>*@
+                        <div class="Top-Line onather-line"></div>
+                        <div class="new-line">
+                            <div class="Reciept" id="2DivFeeReceiptC_30"></div>
+                            <div class="Class" style="text-align:center" id="2DivFeeClassC_30"></div>
+                            <div class="Date" id="2DivFeeDateC_30"></div>
+                        </div>
+                        <div class="Bottom-Line"></div>
+                    </div>
+                    <div class="row">
+                        <div class="coln-12">
+                            <div class=" coln-6 col-student-detail cert-col-2">
+                                <label>Student's Id : </label>
+                                <span class="end" id="2lblRegNoC_30"></span>
+                            </div>
+                            <div class=" coln-1 col-student-detail cert-col-2">
+                                <label></label>
+                                <span></span>
+                            </div>
+                            <div class="coln-5 col-student-detail cert-col-2">
+                                <label>Admission No : </label>
+                                <span class="end" id="AdmNo"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="coln-12">
+                            <div class=" coln-6 col-student-detail cert-col-2">
+                                <label>Student's Name : </label>
+                                <span class="end" id="2lblStudentNameC_30"></span>
+                            </div>
+                            <div class=" coln-1 col-student-detail cert-col-2">
+                                <label></label>
+                                <span></span>
+                            </div>
+                            <div class="coln-5 col-student-detail cert-col-2">
+                                <label>Mobile No</label>
+                                <span class="end" id="2lblMobileNoC_30"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="coln-12">
+                            <div class=" coln-6 col-student-detail cert-col-2">
+                                <label>Father's Name : </label>
+                                <span class="end" id="2lblFatherNameC_30"></span>
+                            </div>
+                            <div class=" coln-1 col-student-detail cert-col-2">
+                                <label></label>
+                                <span></span>
+                            </div>
+                            <div class="coln-5 col-student-detail cert-col-2">
+                                <label>Mother's Name : </label>
+                                <span class="end" id="MotherName"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="coln-12">
+                            <div class=" coln-6 col-student-detail cert-col-2">
+                                <label>Address : </label>
+                                <span class="end" id="2lblAddress_30"></span>
+                            </div>
+                            <div class=" coln-1 col-student-detail cert-col-2">
+                                <label></label>
+                                <span></span>
+                            </div>
+                            <div class="coln-5 col-student-detail cert-col-2">
+                                <label></label>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="coln-12">
+                            <div class=" coln-6 col-student-detail cert-col-2">
+                                <label>Months : </label>
+                                <span class="end" id="2lblMonthsC_30"></span>
+                            </div>
+                            <div class=" coln-1 col-student-detail cert-col-2">
+                                <label></label>
+                                <span></span>
+                            </div>
+                            <div class="coln-5 col-student-detail cert-col-2">
+                                <label></label>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="header new-H" style="width: 100%;">
+                        <div class="Top-Line"></div>
+                        <div class="FeeHead" style="width: 28%;">Type of Fee</div>
+                        <div class="FeeHead" style="width: 18%;">Payable</div>
+                        <div class="FeeHead" style="width: 18%;">Discount</div>
+                        <div class="FeeHead" style="width: 18%;">Paid</div>
+                        <div class="FeeHead" style="width: 18%;">Balance</div>
+                        <div class="Bottom-Line"></div>
+
+                        <div id="2DivFeeDetailC_30" style="margin-top: 7px;">
+                            <div class="FeeHeadValue" id="2DivFeeNameC_30" style="width: 28%;"></div>
+                            <div class="FeeHeadValue" id="2DivGrossPayableC_30" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivConcessionC_30" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivPaidC_30" style="width: 18%;"></div>
+                            <div class="FeeHeadValue" id="2DivBalanceC_30" style="width: 18%;"></div>
+                        </div>
+
+                        <div class="new-line" style="margin-top: 10px;">
+                            <div id="2DivFeeTotalC_30">
+                                <div class="FeeHead" id="2DivFeeNametC_30" style="width: 28%;">Total</div>
+                                <div class="FeeHeadValue" id="2DivGrossPayabletC_30" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivConcessiontC_30" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivPaidtC_30" style="width: 18%;"></div>
+                                <div class="FeeHeadValue" id="2DivBalancetC_30" style="width: 18%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="new-line">
+                        </div>
+
+                        @* Honey ne krna hai *@
+
+                        <div class="col-student-detail cert-col-2">
+                            <label>Concession Name : </label>
+                            <span id="lblConcessionNameSingleSlip"></span>
+
+
+                        </div>
+
+                        <div class="col-student-detail ano cert-col-2">
+                            <label>Rs. (In Words) : </label>
+                            <span id="2lblRsWordC_30"></span>
+                        </div>
+                        <div class="col-student-detail ano cert-col-2">
+                            <label>Payment Mode : </label>
+                            <span id="2lblPaymentModeStudent_30"></span>
+                        </div>
+
+                        <div id="2DivChequeNoStudent_30" class="col-student-detail cert-col-2">
+                            <label>Cheque No. : </label>
+                            <span id="2lblChequeNoStudent_30"></span>
+                        </div>
+
+                        <div id="2DivBankNameStudent_30" class="col-student-detail cert-col-2">
+                            <label>Bank Name : </label>
+                            <span id="2lblBankNameStudent_30"></span>
+                        </div>
+
+                        <div id="2DivChdate30" class="col-student-detail cert-col-2">
+                            <label>Cheque Date : </label>
+                            <span id="2lblChdate30"></span>
+                        </div>
+
+
+                        <div id="2DivChRemarks_30" class="col-student-detail cert-col-2">
+                            <label>Remarks : </label>
+                            <span id="2lblChRemarks_30"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="coln-6 Auth1"></div>
+                            <div class="coln-6 Auth">Authorized signatory</div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="col-last" id="2DivLastPrintReceipt_30">
+                <input type="button" id="2btnPrintReceipt_30" value="Print">
+                <input type="button" style="display: none;" id="2btnCancelPrinReceipt_30" value="Close">
+                <input type="button" style="display: none;" id="2btnCancelPrinReceipt1_30" value="Close">
+                @*onclick="ClosePopup('divPrintRegFeeSlip');"*@
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
+
+
+
+    </div>
+
+
+    <div class="pop2" id="DivSalarySlip">
+        <div class="popinner" style="max-width: 134vh; max-height: 90vh; overflow-y: scroll;">
+            @* <i class="fa fa-times closepop" onclick="ClosePopup('DivSalarySlip');"></i>*@
+            <h2>
+                <label class="popup-title">Fee Slip</label>
+            </h2>
+
+            <div id="PrintInvoice">
+                <div style="display: inline; width: 48%; padding: 1%; float: left;">
+                    <div id="invoice">
+                    </div>
+                </div>
+
+                <div style="display: inline; width: 48%;float: left; padding: 1%;margin-left:1%;">
+                    <div id="invoice_2">
+                    </div>
+                </div>
+            </div>
+            <div class="col-last">
+                <input type="button" id="btnPrintFeeSlip" value="Print">
+
+                <input type="button" onclick="ClosePopup('DivSalarySlip');" id="btnCancelPrintFeeSlip" value="Cancel">
+            </div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        function PrintTable() {
+            var printWindow = window.open('', '', 'height=800,width=1024');
+            printWindow.document.write('<html><head><title>Table Contents</title>');
+
+            //Print the Table CSS.
+            var table_style = document.getElementById("table_style").innerHTML;
+            printWindow.document.write('<style type = "text/css">');
+            printWindow.document.write(table_style);
+            printWindow.document.write('</style>');
+            printWindow.document.write('</head>');
+
+            //Print the DIV contents ie. the HTML Table.
+            printWindow.document.write('<body>');
+            var divContents = document.getElementById("DivStudentFee").innerHTML;
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body>');
+
+            printWindow.document.write('</html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+    </script>
+
+</body>
+</html>
